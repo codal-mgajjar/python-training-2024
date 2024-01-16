@@ -1,0 +1,56 @@
+16-1-2024
+
+Python Basics
+
+- Python datatypes
+        1. String 
+                - declaration
+                - concatenation 
+                - reverse
+
+        2. numbers(int, float, complex)
+                - declaration
+        
+        3. Sets
+                - declaration
+                - .add function
+                - frozen Set
+        
+        4. Lists
+                - declaration
+                - concatenation
+                - multiplication
+                - list comprehension
+
+        5. Tuple
+                - declaration
+                - concatenation
+
+        6. Dictionary(key, value)
+                - declaration
+                - keys, values function
+
+        7. Boolean
+                - declaration
+
+        8. Nonetype
+                - declaration
+
+        9. byte String
+                - declaration
+                - decode
+
+        10. Range
+                - declaration
+
+- Variables
+
+    - String
+    - Int 
+    - Casting
+    - Type function
+    - single or double quotes
+    - Global Variables
+    - Many values to multiple variables
+
+
