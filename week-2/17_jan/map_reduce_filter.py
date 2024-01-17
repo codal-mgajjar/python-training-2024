@@ -10,12 +10,19 @@ l = list(map(len, ['rdgr','rgrgdfds']))
 print(l)
 
 #filter function
-
 arr = [1,2,3,4,5,6]
 print([i for i in filter(lambda x: x>4, arr)])
 
 
 from functools import reduce
-#reduce function 
 
+#reduce function 
 print(reduce(lambda x, y : x + y, [1,2,3,4,5,6]))
+
+
+#zip function
+t1 = ['dsfdsf','wdwefef']
+t2 = ['sfsefe', 'wfewfwew']
+
+t3 = list(zip(t1,t2))
+print(t3)

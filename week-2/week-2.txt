@@ -93,4 +93,17 @@ Python Basics
 - Map function
 - Reduce function
 - Filter function
-        
+- Zip function
+
+- Loops
+        - break
+        - continue
+        - for Loop
+        - while Loop
+        - loop with else 
+        - pass
+
+- conditional
+        - if
+        - if elif else
+
