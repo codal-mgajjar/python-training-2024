@@ -58,3 +58,29 @@ Python Basics
         8. Nonetype
         9. byte String
         10. Range
+
+
+17-1-2024
+
+List(list.py, list_comprehension.py)
+        - append
+        - extend
+        - get index of first occurence
+        - insert
+        - pop
+        - remove
+        - reverse
+        - count
+        - sort
+        - clear
+        - copy
+        - check if list is empty
+        - check if item is in the list
+        - any, all function
+        - merge or concatenation of list
+        - list comprehension
+                - upper function
+                - find squares
+                - keep vowels
+                - conditional list comprehension
+                - dictionary comprehension
