@@ -1,0 +1,60 @@
+16-1-2024
+
+Python Basics
+
+
+- Variables
+        - String
+        - Int 
+        - Casting
+        - Type function
+        - single or double quotes
+        - Global Variables
+        - Many values to multiple variables
+
+
+- Python datatypes
+        1. String 
+        2. numbers(int, float, complex)
+        3. Set(set.py)
+                - Intersection
+                - Union
+                - diffrence
+                - symmetric diffrence 
+                - superset 
+                - subset
+                - disjoint check
+                - In operator
+                - add function
+                - discard function
+                - remove function
+                - update
+                - unique elements out of list        
+        4. Lists (pending)
+                - declaration
+                - concatenation
+                - multiplication
+                - list comprehension
+
+        5. Tuple (tuple.py)
+                - create single value Tuple
+                - range in Tuple
+                - length, min, max
+                - concatenation
+                - indexing 
+
+        6. Dictionary(dictionary.py)
+                - making copy of dictionary
+                - adding new key and value
+                - modifying value
+                - deleting value
+                - avoiding keyerror
+                - iterating over dictionary
+                - merging dictionary
+                - accessing key values
+                - creating ordered dictionary
+
+        7. Boolean
+        8. Nonetype
+        9. byte String
+        10. Range
