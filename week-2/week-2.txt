@@ -62,7 +62,7 @@ Python Basics
 
 17-1-2024
 
-List(list.py, list_comprehension.py)
+- List(list.py, list_comprehension.py)
         - append
         - extend
         - get index of first occurence
@@ -84,3 +84,13 @@ List(list.py, list_comprehension.py)
                 - keep vowels
                 - conditional list comprehension
                 - dictionary comprehension
+
+- Lambda function
+        -  Uppercase
+        - squares
+        - sort list using Lambda
+
+- Map function
+- Reduce function
+- Filter function
+        
