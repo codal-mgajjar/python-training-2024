@@ -123,3 +123,22 @@ Python Basics
         - activate existing Virtualenv - abc/Scripts/activate
         - deactivate
 
+- Object oriented programming
+        - class
+        - object
+        - __init__ method
+        - __str__ method
+        - global, class and instance variable 
+        - default constructor
+        - parameterized constructor
+        - both constructor
+        - destructor
+        - Inheritance
+        - Super function
+        - Multiple Inheritance
+        - Multilevel Inheritance
+        - Hierarchical inheritance
+        - encapsulation
+        - method overriding polymorphism
+        - static variable
+        - class and static method
