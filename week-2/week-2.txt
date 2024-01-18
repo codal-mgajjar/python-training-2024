@@ -107,3 +107,19 @@ Python Basics
         - if
         - if elif else
 
+18-1-2024
+
+- Pip(piptutorial.py)
+        - importing files
+        - handling import errors
+        - installing packages through python file
+        - upgrading packages
+        - uninstalling packages
+        - installing requirements.txt
+
+- Virtualenv
+        - pip install Virtualenv
+        - create Virtualenv - Virtualenv abc
+        - activate existing Virtualenv - abc/Scripts/activate
+        - deactivate
+
