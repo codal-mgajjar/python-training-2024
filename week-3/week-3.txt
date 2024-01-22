@@ -1,0 +1,17 @@
+22-1-2024
+
+- File handling
+    - check if file exists or not
+    - check if file is empty or not
+    - copy file content
+
+- CSV file handling
+    - writing in csv
+    - reading csv
+    - reading csv using pandas
+    - writing csv using pandas
+
+- Json file handling
+    - converting dictionary into json object
+    - writing into json file
+    - deserializing data
