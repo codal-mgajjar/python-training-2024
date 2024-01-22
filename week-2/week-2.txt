@@ -142,3 +142,18 @@ Python Basics
         - method overriding polymorphism
         - static variable
         - class and static method
+
+19-1-2024
+
+- class method
+- Static method
+- decorators
+- time module
+- file handling
+    - open file
+    - read file
+    - with statement
+    - split lines
+    - close files
+    - write in file
+    - append mode
