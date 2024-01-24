@@ -15,3 +15,46 @@
     - converting dictionary into json object
     - writing into json file
     - deserializing data
+
+23-1-2024
+
+- Task
+    - Use of seek function
+    - Decorator function way
+    - Decorator class way
+    - wraps for metadata
+    - git stash
+
+- StringIO
+    - read StringIO
+    - write StringIO
+    - retrieve full StringIO
+    - close stream
+    - bytesIO
+
+- difference between MYSQL and PostgresSQL
+- installation of PostgresSQL
+- GO through pgadmin4 & psql
+- Psql 
+    - Switch connection to a new database - /c Learning
+    - List available databases	- \l 
+    - List available tables	- \dt 
+    - Describe a table such as a column, type, modifiers of columns, etc. - \d employee
+    - List all users and their assign roles	 - \du
+    - Execute the last command again - \g
+    - Exit psql shell - \q
+    - Create user - CREATE USER meshw WITH PASSWORD 'a';
+    - Create role - CREATE ROLE rolename;
+- Basic CRUD operations
+    - create database
+    - Create table
+    - Insert data 
+    - select specific column
+    - print all data
+    - add column
+    - Update data
+    - Alter column name 
+    - Delete column 
+    - delete data
+    - delete table
+    

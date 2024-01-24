@@ -1,0 +1,49 @@
+#Create table 
+
+CREATE TABLE Employee(
+name VARCHAR(255),
+age int
+);
+
+#Insert data 
+
+INSERT INTO Employee (name, age)
+VALUES('Meshw', 21);
+
+#select specific column
+
+SELECT name FROM employee;
+
+# print all data
+
+SELECT * FROM employee;
+
+# add column
+
+ALTER TABLE employee
+ADD position VARCHAR(255);
+
+# Update data
+
+UPDATE employee
+SET position = 'intern'
+WHERE name = 'Meshw';
+
+# Alter column name 
+
+ALTER TABLE employee
+ALTER COLUMN age TYPE VARCHAR(2);
+
+# Delete column 
+
+ALTER TABLE employee
+DROP COLUMN position;
+
+# delete data
+
+DELETE FROM employee
+WHERE name = 'Jack';
+
+# delete table
+
+DROP TABLE employee;
