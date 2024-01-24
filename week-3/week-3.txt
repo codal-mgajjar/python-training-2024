@@ -48,7 +48,7 @@
 - Basic CRUD operations
     - create database
     - Create table
-    - Insert data 
+    - Insert data
     - select specific column
     - print all data
     - add column
@@ -58,3 +58,16 @@
     - delete data
     - delete table
     
+24-1-2024
+
+- pgadmin4 overview
+- Hackerrank problems
+    - Find the Runner-Up Score!
+    - List Comprehensions
+    - Print Function
+    - Write a function
+    - Loops
+    - Python: Division
+    - Arithmetic Operators
+    - Python If-Else
+    - Say "Hello, World!" With Python
