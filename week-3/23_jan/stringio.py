@@ -20,3 +20,4 @@ print(data.closed)
 #bytes IO
 stream_str = BytesIO(b"JournalDev Python: \x00\x01")
 print(stream_str.getvalue())
+stream_str.close()
