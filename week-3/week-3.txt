@@ -34,7 +34,7 @@
 
 - Use of StringIO and bytesIO - it is object which can be used to perform file operations without using file, stringIO is used for string and byteIO for byte objects like images.
                               - we can use it as buffer memory.
-                              
+
 - difference between MYSQL and PostgresSQL
 - installation of PostgresSQL
 - GO through pgadmin4 & psql
@@ -74,3 +74,21 @@
     - Arithmetic Operators
     - Python If-Else
     - Say "Hello, World!" With Python
+
+
+25-1-2024
+
+- Tasks
+    - .sort() uses which algo ? - Timsort = merge + insertion sort
+    - Pagination -  SELECT *
+                    FROM
+                    person
+                    ORDER BY
+                    id desc
+                    LIMIT 3 OFFSET 1
+    - indexing in sql 
+    - interfaces
+    - abstract class and method
+    - Decorator working with 2 Decorators
+    - Transaction - commit, rollback, Savepoint
+    - keys
