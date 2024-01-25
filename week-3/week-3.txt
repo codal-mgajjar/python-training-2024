@@ -23,7 +23,7 @@
     - Decorator function way
     - Decorator class way
     - wraps for metadata
-    - git stash
+    - git stash - Whenever we have modified our changes after commiting once, if we want to move back to commit we can use stash to store the modified changes and use that stash afterwards. We can use multiple stash for multiple changes.
 
 - StringIO
     - read StringIO
@@ -32,6 +32,9 @@
     - close stream
     - bytesIO
 
+- Use of StringIO and bytesIO - it is object which can be used to perform file operations without using file, stringIO is used for string and byteIO for byte objects like images.
+                              - we can use it as buffer memory.
+                              
 - difference between MYSQL and PostgresSQL
 - installation of PostgresSQL
 - GO through pgadmin4 & psql
