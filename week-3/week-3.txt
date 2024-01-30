@@ -1,0 +1,94 @@
+22-1-2024
+
+- File handling
+    - check if file exists or not
+    - check if file is empty or not
+    - copy file content
+
+- CSV file handling
+    - writing in csv
+    - reading csv
+    - reading csv using pandas
+    - writing csv using pandas
+
+- Json file handling
+    - converting dictionary into json object
+    - writing into json file
+    - deserializing data
+
+23-1-2024
+
+- Task
+    - Use of seek function
+    - Decorator function way
+    - Decorator class way
+    - wraps for metadata
+    - git stash - Whenever we have modified our changes after commiting once, if we want to move back to commit we can use stash to store the modified changes and use that stash afterwards. We can use multiple stash for multiple changes.
+
+- StringIO
+    - read StringIO
+    - write StringIO
+    - retrieve full StringIO
+    - close stream
+    - bytesIO
+
+- Use of StringIO and bytesIO - it is object which can be used to perform file operations without using file, stringIO is used for string and byteIO for byte objects like images.
+                              - we can use it as buffer memory.
+
+- difference between MYSQL and PostgresSQL
+- installation of PostgresSQL
+- GO through pgadmin4 & psql
+- Psql 
+    - Switch connection to a new database - /c Learning
+    - List available databases	- \l 
+    - List available tables	- \dt 
+    - Describe a table such as a column, type, modifiers of columns, etc. - \d employee
+    - List all users and their assign roles	 - \du
+    - Execute the last command again - \g
+    - Exit psql shell - \q
+    - Create user - CREATE USER meshw WITH PASSWORD 'a';
+    - Create role - CREATE ROLE rolename;
+- Basic CRUD operations
+    - create database
+    - Create table
+    - Insert data
+    - select specific column
+    - print all data
+    - add column
+    - Update data
+    - Alter column name 
+    - Delete column 
+    - delete data
+    - delete table
+    
+24-1-2024
+
+- pgadmin4 overview
+- Hackerrank problems
+    - Find the Runner-Up Score!
+    - List Comprehensions
+    - Print Function
+    - Write a function
+    - Loops
+    - Python: Division
+    - Arithmetic Operators
+    - Python If-Else
+    - Say "Hello, World!" With Python
+
+
+25-1-2024
+
+- Tasks
+    - .sort() uses which algo ? - Timsort = merge + insertion sort
+    - Pagination -  SELECT *
+                    FROM
+                    person
+                    ORDER BY
+                    id desc
+                    LIMIT 3 OFFSET 1
+    - indexing in sql 
+    - interfaces
+    - abstract class and method
+    - Decorator working with 2 Decorators
+    - Transaction - commit, rollback, Savepoint
+    - keys

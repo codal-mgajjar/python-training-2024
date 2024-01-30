@@ -1,0 +1,38 @@
+29-1-2024
+
+- Introduction to django
+    - What is django? - Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.
+    - Popular websites based on django : Instagram, youtube, pinterest, mozilla
+    - MVT framework : Model, view, template
+
+- Installation : pip install django
+
+- Creating first project : django-admin startproject demo_project
+
+- Starting project 
+    - python manage.py runserver
+    - on specific port - python manage.py runserver 8080
+
+- Creating app
+    - python manage.py startapp polls
+
+- created views.py and added urls.py : used path and include method for url.
+
+- Database & Models Setup(sqlite3)
+    - Created 2 models : Question and choice models
+    - Activated models.py by adding it in Installed_apps(settings.py) : polls.apps.PollsConfig
+    - Migrated changes by running makemigrations and migrate command.
+    - Explored orm by manage.py shell
+        - Used following commands
+                - Questions.objects.all()
+                - q.question_text
+                - q.save()
+                - added __str__ method to return string object
+                - Question.objects.get(date==current_date)
+                - Question.objects.count()
+    - Superuser
+        - created super user : python manage.py createsuperuser
+        - Explored admin panel by logging in
+    
+    - added model in admin.py : admin.site.register(Question)
+    
