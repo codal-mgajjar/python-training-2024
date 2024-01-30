@@ -1,1 +1,7 @@
 /.idea
+demo_project/polls/__pycache__
+
+demo_project/demo_project/__pycache__
+demo_project/polls/migrations/__pycache__
+
+demo_project/demo_project/migrations/__pycache__
