@@ -36,3 +36,21 @@
     
     - added model in admin.py : admin.site.register(Question)
     
+30-1-2024
+
+- Solved git pycache commit changes
+- Added data in model
+- Created views for detail, results, vote
+- Variable passing in url
+- added templates : index, results, details
+- Used render for templates
+- http404 and get_object_or_404()
+- Used template tags
+- Created form and loaded data
+- Used radiobutton and redirected pages
+- Static files integration 
+- Admin panel modification
+    - field modification
+    - format change 
+    - Customized listing
+- Third party packages using pip
