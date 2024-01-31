@@ -1,0 +1,26 @@
+<!-- employee_app/templates/employee_app/add_employee.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+</head>
+<body>
+    <h2>Add Employee</h2>
+    <form method="post" action="{% url 'add_employee' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Employee Name</label>
+        <input type="text" name="name" />
+        <label for="email">Employee email</label>
+        <input type="text" name="email" />
+        <label for="phone_no">Employee Phone No</label>
+        <input type="text" name="phone_no"/>
+        <label for="id_profile_photo">Profile Photo:</label>
+        <input type="file" name="profile_photo"><br>
+
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'show_employee' %}">Back to Employee List</a>
+</body>
+</html>
