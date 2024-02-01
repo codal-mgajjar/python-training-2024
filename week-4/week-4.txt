@@ -65,3 +65,16 @@
     - Created page to present data from database 
     - Solved problem related to image retreival 
     - explored forms.py and as.p in forms
+
+1-1-2024
+
+- Integrated postgres in project
+- Models
+    - Creating objects
+    - Saving changes to objects
+    - Retrieving all objects
+    - Retrieving specific objects with filters
+    - Retrieving a single object with get
+    - Limiting QuerySets
+    - Field lookups
+- User authentication
