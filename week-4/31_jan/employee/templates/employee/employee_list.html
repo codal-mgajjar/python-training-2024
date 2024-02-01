@@ -1,0 +1,41 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'employee/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+   
+</head>
+<body>
+    <h2>Employee List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Profile Photo</th>
+                <th>Name</th>
+                <th>Email</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>
+                    {% if employee.profile_photo %}
+                        <img src="{{ employee.profile_photo.url }}" alt="{{ employee.first_name }}'s Photo" style="max-width: 100px; max-height: 100px;">
+                    {% endif %}
+                </td>
+                <td>{{ employee.name }} </td>
+                <td>{{ employee.email }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add_employee' %}">Back to Employee Add</a>
+</body>
+</html>

@@ -54,3 +54,14 @@
     - format change 
     - Customized listing
 - Third party packages using pip
+
+31-1-2024
+
+- Created addition app to understand the url routing flow in better way
+- Created employee app to understand models and forms in detail
+    - Generated form for user input 
+    - added functionality like image upload 
+    - created model according to table
+    - Created page to present data from database 
+    - Solved problem related to image retreival 
+    - explored forms.py and as.p in forms
