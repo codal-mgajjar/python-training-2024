@@ -18,3 +18,6 @@ def authView(request):
         form = UserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
 
+# @login_required
+# def logout(request):
+#     return render(request,'registration/login',{})
