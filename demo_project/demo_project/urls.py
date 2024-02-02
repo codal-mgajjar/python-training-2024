@@ -21,11 +21,13 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("polls/", include("polls.urls")),
-    path("", include("employee.urls")),
+    path("e", include("employee.urls")),
 
     
-    path('',views.index,name='index'),
+    path('1',views.index,name='index'),
     path('', include('addition.urls')),
+    path('', include('user_authentication.urls')),
+
 
 
 ]

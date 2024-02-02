@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
     'employee.apps.EmployeeConfig',
+    'blog.apps.BlogConfig',
+    'user_authentication',
 
 ]
 
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'demo_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['addition/templates','employee/templates'],
+        'DIRS': ['addition/templates','employee/templates','user_authentication/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +80,12 @@ WSGI_APPLICATION = 'demo_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'a',
+        'PORT': '5432',
+
     }
 }
 
@@ -128,3 +134,8 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+LOGIN_REDIRECT_URL = "user_authentication:home"
+LOGOUT_REDIRECT_URL = "user_authentication:login"
