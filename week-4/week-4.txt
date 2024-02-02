@@ -75,6 +75,4 @@
     - Retrieving all objects
     - Retrieving specific objects with filters
     - Retrieving a single object with get
-    - Limiting QuerySets
-    - Field lookups
 - User authentication
