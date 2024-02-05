@@ -75,6 +75,7 @@
     - Retrieving all objects
     - Retrieving specific objects with filters
     - Retrieving a single object with get
+<<<<<<< HEAD
 - User authentication
 
 2-1-2024
@@ -92,3 +93,6 @@
                     - Entry.objects.filter(blog_id=4)
     - How cycle works when you click on form submit?  : There is middleware layer next to it which provides security to the data by several middlewares such as csrf tokens, etc. We can create our custom middlewares too.
     
+=======
+- User authentication
+>>>>>>> f5f5d27bc0c4053b8e5e4c4211b4ec2f1d8a6b88
