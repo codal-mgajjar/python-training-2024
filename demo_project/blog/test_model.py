@@ -73,7 +73,6 @@ list(querysets)
 bool(querysets)
 
 
-
 # storing none values
 from blog.models import Dog
 Dog.objects.create(name="max",data=None)
@@ -100,3 +99,6 @@ Entry1 == Entry2
 #deleting object
 Entry1.delete()
 Entry.objects.filter(pub_date__year=2024).delete()
+
+#updating objects
+Entry.objects.filter(pub_date__year=2024).update(headline="codal")
