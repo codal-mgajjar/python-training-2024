@@ -1,0 +1,17 @@
+5-2-2024
+
+- Creating objects
+- updating foreign key
+- adding many to many data
+- retrieving all objects
+- retrieving specific using filter
+- filter querysets are unique
+- Retrieving a single object with get()
+- Limiting querysets
+- order by
+- exact and iexact
+- contains
+- istartswith and iendswith
+- lookups 
+- pk shortcuts
+- caching and querysets
