@@ -91,3 +91,4 @@
                     - Entry.objects.filter(pub_date__lte="2024-02-01")
                     - Entry.objects.filter(blog_id=4)
     - How cycle works when you click on form submit?  : There is middleware layer next to it which provides security to the data by several middlewares such as csrf tokens, etc. We can create our custom middlewares too.
+    
