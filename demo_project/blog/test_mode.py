@@ -73,6 +73,7 @@ list(querysets)
 bool(querysets)
 
 
+
 # storing none values
 from blog.models import Dog
 Dog.objects.create(name="max",data=None)
