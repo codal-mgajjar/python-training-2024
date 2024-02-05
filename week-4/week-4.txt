@@ -76,3 +76,17 @@
     - Retrieving specific objects with filters
     - Retrieving a single object with get
 - User authentication
+
+2-1-2024
+
+- Resolved user authentication issues
+- Added logout feature
+- Limiting QuerySets - equivalent to limit offset in raw SQL
+    - Slicing rows for pagination
+    - Entry.objects.all()[:2]
+    - Entry.objects.all()[2:5]
+- Field lookups - filter, exclude, get
+    - Similar to the WHERE clause
+    - Entry.objects.filter(pub_date__lte="2024-02-01")
+    - Entry.objects.filter(blog_id=4)
+- How the cycle works when you click on form submit? : There is a middleware layer next to it that provides security to the data by several middlewares such as CSRF tokens, etc. We can create our custom middlewares too.
