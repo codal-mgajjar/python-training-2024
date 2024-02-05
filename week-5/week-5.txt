@@ -15,3 +15,9 @@
 - lookups 
 - pk shortcuts
 - caching and querysets
+- storing none values
+- contains and contained
+- has_key and has_keys and has_any_keys
+- comparison
+- deleting object
+- updating objects
