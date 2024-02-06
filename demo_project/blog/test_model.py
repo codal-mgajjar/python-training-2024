@@ -102,3 +102,86 @@ Entry.objects.filter(pub_date__year=2024).delete()
 
 #updating objects
 Entry.objects.filter(pub_date__year=2024).update(headline="codal")
+
+
+#Aggregation
+
+# average
+from django.db.models import Avg 
+from blog.models import *
+Book.objects.aggregate(Avg("price"))
+Book.objects.aggregate(average_price=Avg("price"))
+
+#min and max
+from django.db.models import Max, Min
+Book.objects.aggregate(Max("price"), Min("price"))
+
+# Counting specific argument
+from django.db.models import Count
+q = Book.objects.annotate(Count("authors"))
+q[0]
+q[0].authors__count
+
+# Combining multiple aggregations
+q = Book.objects.annotate(Count("authors"), Count("store"))
+q[0].authors__count
+q[0].store__count
+
+#To avoid duplicate items we can use distinct parameter
+q = Book.objects.annotate(Count("authors", distinct=True), Count("store", distinct=True))
+
+#Join and aggregates
+
+Store.objects.aggregate(min_price=Min("books__price"), max_price=Max("books__price"))
+Store.objects.annotate(min_price=Min("books__price"), max_price=Max("books__price"))
+
+#Following relationship backwards
+
+Publisher.objects.annotate(Count("book"))
+Publisher.objects.aggregate(oldest_pubdate=Min("book__pubdate"))
+
+#order of annotate
+a, b = Publisher.objects.filter(book__rating__gt=3.0).annotate(avg_rating=Avg("book__rating"))
+
+
+#Relationships
+
+#One to one relation
+class Place(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=80)
+
+class Restaurant(models.Model):
+    place = models.OneToOneField(Place,on_delete=models.CASCADE,primary_key=True)
+    serves_pizza = models.BooleanField(default=False)
+
+#One to many relation
+class Blog(models.Model):
+    name = models.CharField(max_length=100)
+    tagline = models.TextField()
+
+class Entry(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    headline = models.CharField(max_length=255)
+    body_text = models.TextField()
+    pub_date = models.DateField()
+
+#Many to many relation
+    
+class Author(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+
+class Entry(models.Model):
+    headline = models.CharField(max_length=255)
+    body_text = models.TextField()
+    authors = models.ManyToManyField(Author)
+
+#Raw queries
+    
+for p in Entry.manager.raw('SELECT * FROM blog_entry'): 
+     print(p)
+
+#index lookup
+Entry.manager.raw("SELECT * FROM blog_entry")[:]
+Entry.manager.raw("SELECT * FROM blog_entry")[0]
