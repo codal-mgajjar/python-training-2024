@@ -185,3 +185,77 @@ for p in Entry.manager.raw('SELECT * FROM blog_entry'):
 #index lookup
 Entry.manager.raw("SELECT * FROM blog_entry")[:]
 Entry.manager.raw("SELECT * FROM blog_entry")[0]
+
+
+# Transaction
+from django.db import transaction
+
+# using decorator
+@transaction.atomic
+def viewfunc(request):
+    pass
+
+#Using context manager
+def viewfunc(request):
+    with transaction.atomic():
+        pass
+
+# Exception handling
+from django.db import IntegrityError
+
+@transaction.atomic
+def viewfunc(request):
+    
+    try:
+        with transaction.atomic():
+            #generate_relationships()
+            pass
+    except IntegrityError:
+        #handle_exception()
+        pass
+    #add_children()
+
+#Performing actions after commit
+def send_welcome_email():
+    pass
+
+transaction.on_commit(send_welcome_email)
+
+# Savepoint
+@transaction.atomic
+def viewfunc(request):
+    a.save()
+    sid = transaction.savepoint()
+
+    b.save()
+    if True:
+        transaction.savepoint_commit(sid)
+    else:
+        transaction.savepoint_rollback(sid)
+
+# cached attribute
+entry = Entry.manager.get(id=2)
+entry.blog  
+entry.blog  #cached, no db access
+
+# explain()
+e = Entry.manager.all() 
+e.explain()
+
+#Retrieve individual objects using a unique, indexed column
+entry = Entry.manager.get(id=2) #faster
+entry = Entry.manager.get(headline="codal") 
+
+# Create in bulk
+Entry.objects.bulk_create(
+    [
+        Entry(headline="This is a test"),
+        Entry(headline="This is only a test"),
+    ]
+)
+
+#Insert in bulk
+Entry.manager.add(a, b)
+
+#Remove in bulk
+Entry.manager.remove(a, b)
