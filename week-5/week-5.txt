@@ -45,3 +45,21 @@
     - use manager instead of objects -> Entry.manager.all()
     - multiple manager
 
+7-2-2024
+
+- Transaction
+    - Using decorator
+    - Using context manager
+    - Exception handling
+    - Performing actions after commit
+    - Savepoint
+- Database access optimization
+    - cached attributes
+    - explain()
+    - Retrieve individual objects using a unique, indexed column
+    - Don’t retrieve things you don’t need
+    - Use bulk methods
+        - Create in bulk
+        - Insert in bulk
+        - Remove in bulk
+        
