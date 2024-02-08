@@ -21,10 +21,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("polls/", include("polls.urls")),
-    path("e", include("employee.urls")),
+    path("employee/", include("employee.urls")),
 
-    
-    path('1',views.index,name='index'),
     path('', include('addition.urls')),
     path('', include('user_authentication.urls')),
 

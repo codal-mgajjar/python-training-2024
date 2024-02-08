@@ -9,4 +9,10 @@ class Employee(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}"
-    
+    def delete_employee(self):
+        # Delete profile photo if it exists
+        if self.profile_photo:
+            storage, path = self.profile_photo.storage, self.profile_photo.path
+            storage.delete(path)
+        # Delete the employee instance
+        self.delete()

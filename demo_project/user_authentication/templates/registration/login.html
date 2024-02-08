@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+     
+<body>
 
-
-<form method="POST">
-{% csrf_token %}
-    
-{{form}}
-    <button type="submit">Submit</button>
-    
+<form method="post" action="{% url 'user_authentication:login' %}">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" />
+        <label for="password">Password</label>
+        <input type="text" name="password" />
+        <button type="submit">Login</button>
     </form>
+   <h1>{{request.error_message}}</h1>
 
-
-
+</body>
 {% endblock content %}

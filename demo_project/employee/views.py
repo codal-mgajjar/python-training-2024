@@ -38,3 +38,9 @@ def add_employee(request):
     #     form = EmployeeForm()
     # return render(request, 'employee/add_employee.html', {'form': form})
 
+def delete_employee(request, employee_id):
+    employee = Employee.objects.get(id=employee_id)
+    
+    employee.delete_employee()
+
+    return redirect("show_employee")
