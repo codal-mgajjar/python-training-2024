@@ -21,3 +21,27 @@
 - comparison
 - deleting object
 - updating objects
+
+6-2-2024
+
+- Aggregation
+    - Avg
+    - Min, max
+    - Counting specific argument
+    - Combining multiple aggregations
+    - distinct parameter
+    - join, aggregates
+    - following relationship backwards
+    - order of annotate
+
+- relationships
+    - One to many -> Foreign key
+    - Many to many -> ManyToManyField
+    - One to One -> OneToOneField
+
+- Searching
+- Manager
+    - Add manager using -> manager = models.Manager()
+    - use manager instead of objects -> Entry.manager.all()
+    - multiple manager
+
