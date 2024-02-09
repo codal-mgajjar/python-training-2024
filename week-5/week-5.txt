@@ -62,4 +62,9 @@
         - Create in bulk
         - Insert in bulk
         - Remove in bulk
-        
+
+8-2-2024
+
+- Integrated all apps
+- Explored jst accis
+- How Django login/logout works

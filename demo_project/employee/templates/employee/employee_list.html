@@ -31,11 +31,16 @@
                 </td>
                 <td>{{ employee.name }} </td>
                 <td>{{ employee.email }}</td>
-                
+                <td><form action="{% url 'delete_employee' employee.id %}" method="post">
+                    {% csrf_token %}
+                <button type="submit">Delete</button>
+                </form>
+                </td>
             </tr>
+
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'add_employee' %}">Back to Employee Add</a>
+    <a href="{% url 'user_authentication:home' %}">Back to Home Page</a>
 </body>
 </html>

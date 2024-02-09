@@ -4,9 +4,15 @@
 
 
 home Page
+<a href="{% url 'show_employee' %}">Employee List</a>
+<a href="{% url 'add_employee' %}">Add Employee</a>
+<a href="{% url 'polls:index' %}">Show polls</a>
+
 <form method="post" action="{% url 'user_authentication:logout' %}">
     {% csrf_token %}
     <button type="submit">logout</button>
 </form>
+
+
 
 {% endblock content %}
