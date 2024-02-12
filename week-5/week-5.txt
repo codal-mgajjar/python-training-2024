@@ -68,3 +68,11 @@
 - Integrated all apps
 - Explored jst accis
 - How Django login/logout works
+
+9-2-2024
+
+- Q function
+- Login/logout
+- LoginView
+- F function
+- Reverse relationship

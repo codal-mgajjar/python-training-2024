@@ -259,3 +259,12 @@ Entry.manager.add(a, b)
 
 #Remove in bulk
 Entry.manager.remove(a, b)
+
+#Q function
+from django.db.models import Q
+Blog.objects.filter(Q(name__startswith="codal")| Q(name__startswith="polls"))
+
+#F function
+from django.db.models import F
+Entry.manager.filter(number_of_comments__gt=F("number_of_pingbacks"))
+Entry.manager.filter(authors__name=F("blog__name"))
