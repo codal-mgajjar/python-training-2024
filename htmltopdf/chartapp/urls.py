@@ -1,9 +1,8 @@
-# chartapp/urls.py
-
 from django.urls import path
-from .views import google_chart_to_pdf, generate_pdf
+from .views import chart_view, generate_pdf
 
 urlpatterns = [
-    path('google-chart-to-pdf/', google_chart_to_pdf, name='google_chart_to_pdf'),
-    path('generate-pdf/', generate_pdf, name='generate_pdf'),
+    path('chart/', chart_view, name='chart-view'),
+    path('pdf/', generate_pdf.as_view(), name='pdf'),
+    
 ]
