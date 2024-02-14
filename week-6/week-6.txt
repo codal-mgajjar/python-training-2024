@@ -1,0 +1,6 @@
+12-2-2024
+
+- DRF overview
+- Installation
+- basic user api 
+- research for html charts to pdf
