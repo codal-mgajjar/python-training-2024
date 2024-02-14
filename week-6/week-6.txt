@@ -4,3 +4,8 @@
 - Installation
 - basic user api 
 - research for html charts to pdf
+
+13-2-2024
+
+- html to pdf
+- serializers
