@@ -1,0 +1,5 @@
+- cairosvg : Too many dependencies in windows.
+- wkhtmltopdf : object type issues
+- pdfkit : Working.
+- template.loader : loads whole template.
+- google charts to svg : use js for conversion instead of cairosvg
