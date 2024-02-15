@@ -15,3 +15,9 @@
 - Request and responses
 - Class based views
 - Authentications and permissions
+
+15-2-2024
+
+- Explored postman 
+- Relationships and hyperlinked APIs
+- Viewsets and routers
