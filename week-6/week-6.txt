@@ -20,7 +20,8 @@
 
 - Explored postman 
 - Relationships and hyperlinked APIs
-- Viewsets and routers                                                          
+- Viewsets and routers
+
 
 16-2-2024
 
