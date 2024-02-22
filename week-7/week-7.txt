@@ -5,4 +5,8 @@
     - concrete view classes
 - Viewsets
 
+20-2-2024
 
+- Routers
+- parsers
+- serializers
