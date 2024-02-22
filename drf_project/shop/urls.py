@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import ItemListView, hello_world, view, view_schema_decorator, UserList, UserViewSet, UserCountView, LoginView
+from .views import ItemListView, hello_world, view, view_schema_decorator, UserList, UserViewSet, UserCountView,RegisterUser, LoginView
+from rest_framework.authtoken import views
 
 user_list = UserViewSet.as_view({'get': 'list'})
 user_detail = UserViewSet.as_view({'get': 'retrieve'})
@@ -12,7 +13,10 @@ urlpatterns = [
         path('view_schema_decorator/', view_schema_decorator, name="view_schema_decorator"),
         # path('users/', UserList.as_view(), name='user-list')
         path('user_count/', UserCountView.as_view(), name="UserCountView"),
-        path('login/', LoginView.as_view(),name="LoginView")
+        path('login/', LoginView.as_view(),name="LoginView"),
+        path('api-token-auth/', views.obtain_auth_token),
+        path('register/', RegisterUser.as_view(),name='register')
+
 
 ]
 
