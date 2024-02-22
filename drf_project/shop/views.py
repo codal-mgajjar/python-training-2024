@@ -123,11 +123,11 @@ from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-class ExampleView(APIView):
-    parser_classes = [JSONParser]
+# class ExampleView(APIView):
+#     parser_classes = [JSONParser]
 
-    def post(self, request, format=None):
-        return Response({'received data': request.data})
+#     def post(self, request, format=None):
+#         return Response({'received data': request.data})
     
 class FileUploadView(APIView):
     parser_classes = [FileUploadParser]
@@ -151,3 +151,40 @@ class UserCountView(APIView):
         user_count = User.objects.filter().count()
         content = {'user_count': user_count}
         return Response(content)
+    
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+# class ExampleView(APIView):
+#     authentication_classes = [SessionAuthentication, BasicAuthentication]
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request, format=None):
+#         content = {
+#             'user': str(request.user),  # `django.contrib.auth.User` instance.
+#             'auth': str(request.auth),  # None
+#         }
+#         return Response(content)    
+    
+
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from django.contrib.auth import authenticate
+class LoginView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        print(1)
+
+        user = authenticate(username=serializer.data['username'], password=str(serializer.data['password']))
+        print(1)
+        if user:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token':token.key})
+        else:
+            return Response({'error': 'Invalid credentials'}, status=401)
+        
