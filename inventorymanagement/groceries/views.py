@@ -1,15 +1,21 @@
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny,IsAdminUser , BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, LoginUserSerializer
+from .serializers import UserSerializer, LoginUserSerializer, ProductSerializer
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from rest_framework import viewsets, mixins, generics, status, filters
+from rest_framework.decorators import action
 
+from .models import Product
 
 class RegisterUser(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = UserSerializer(data=request.data)
 
@@ -23,6 +29,9 @@ class RegisterUser(APIView):
         return Response({'status':200, 'payload': serializer.data,'token': str(token), 'message': 'you data is registered'})
 
 class LoginView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = LoginUserSerializer(data=request.data,context={'request': request})
         if not serializer.is_valid():
@@ -41,8 +50,56 @@ class LoginView(APIView):
     
 class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+
 
     def post(self, request):
         request.auth.delete() 
         return Response({'status': 200, 'message': 'Logout successful'})
+    
+class IsReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in ['GET', 'HEAD', 'OPTIONS']
+
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in ['GET', 'HEAD', 'OPTIONS']
+
+
+class ProductListView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    authentication_classes = [TokenAuthentication]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'description', 'price', 'quantity']
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    @action(detail=True, methods=['PATCH'])
+    def update_product(self, request, pk=None):
+        try:
+            instance = self.get_object()
+
+          
+            serializer = ProductSerializer(instance, data=request.data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'detail': 'Item updated successfully.'})
+            else:
+                return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Product.DoesNotExist:
+            return Response({'error': 'Item not found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+    @action(detail=True, methods=['DELETE'])
+    def delete_product(self, request, pk=None):
+        try:
+            instance = self.get_object()
+            instance.delete()
+            return Response({'detail': 'Item deleted successfully.'})
+
+        except Product.DoesNotExist:
+            return Response({'error': 'Item not found.'}, status=status.HTTP_404_NOT_FOUND)

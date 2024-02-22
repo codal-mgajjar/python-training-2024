@@ -146,12 +146,16 @@ from rest_framework.views import APIView
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie, vary_on_headers
+from django.utils.decorators import method_decorator
 
 class UserCountView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     renderer_classes = [JSONRenderer]
-
+    @method_decorator(cache_page(10))
+    @method_decorator(vary_on_cookie)
     def get(self, request, format=None):
         user_count = User.objects.filter().count()
         content = {'user_count': user_count}
@@ -204,3 +208,15 @@ class RegisterUser(APIView):
         token, created = Token.objects.get_or_create(user=user)
         
         return Response({'status':200, 'payload': serializer.data,'token': str(token), 'message': 'you data is registered'})
+    
+
+# # PErmission for specific ip address
+# from rest_framework import permissions
+
+# class BlocklistPermission(permissions.BasePermission):
+
+#     def has_permission(self, request, view):
+#         ip_addr = request.META['REMOTE_ADDR']
+#         blocked = Blocklist.objects.filter(ip_addr=ip_addr).exists()
+#         return not blocked
+    
