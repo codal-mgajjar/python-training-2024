@@ -5,16 +5,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    return render(request, "home.html",{})
+    return render(request, 'home.html',{})
 
 
 def authView(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = UserCreationForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return redirect("user_authentication:login")
+            return redirect('user_authentication:login')
     else:
         form = UserCreationForm()
-    return render(request, "registration/signup.html", {"form": form})
-
+    return render(request, 'registration/signup.html', {'form': form})

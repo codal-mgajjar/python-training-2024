@@ -12,7 +12,7 @@
 - exact and iexact
 - contains
 - istartswith and iendswith
-- lookups 
+- lookups
 - pk shortcuts
 - caching and querysets
 - storing none values

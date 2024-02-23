@@ -2,7 +2,7 @@
 
 - DRF overview
 - Installation
-- basic user api 
+- basic user api
 - research for html charts to pdf
 
 13-2-2024
@@ -18,7 +18,7 @@
 
 15-2-2024
 
-- Explored postman 
+- Explored postman
 - Relationships and hyperlinked APIs
 - Viewsets and routers
 

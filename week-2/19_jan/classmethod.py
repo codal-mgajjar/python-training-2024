@@ -12,16 +12,16 @@ class student:
         firstname, lastname = name.split()
         return student(firstname,lastname)
 
-obj = student.getname("meshw gajjar")
+obj = student.getname('meshw gajjar')
 print(obj.firstname)
 print(obj.surname)
 
 #another example
 
 class employee:
-    company = "codal"
+    company = 'codal'
     def show(self):
-        self.name = "gajjar"
+        self.name = 'gajjar'
         print(f"Name is {self.name} and company is {self.company}")
 
     @classmethod
@@ -29,9 +29,8 @@ class employee:
         cls.company = newCompany
 
 e1 = employee()
-e1.name = "Meshw"
+e1.name = 'Meshw'
 e1.show()
-e1.changeCompany("codal2")
+e1.changeCompany('codal2')
 e1.show()
 print(employee.company)
-

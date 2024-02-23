@@ -38,10 +38,10 @@
 - difference between MYSQL and PostgresSQL
 - installation of PostgresSQL
 - GO through pgadmin4 & psql
-- Psql 
+- Psql
     - Switch connection to a new database - /c Learning
-    - List available databases	- \l 
-    - List available tables	- \dt 
+    - List available databases	- \l
+    - List available tables	- \dt
     - Describe a table such as a column, type, modifiers of columns, etc. - \d employee
     - List all users and their assign roles	 - \du
     - Execute the last command again - \g
@@ -56,11 +56,11 @@
     - print all data
     - add column
     - Update data
-    - Alter column name 
-    - Delete column 
+    - Alter column name
+    - Delete column
     - delete data
     - delete table
-    
+
 24-1-2024
 
 - pgadmin4 overview
@@ -86,7 +86,7 @@
                     ORDER BY
                     id desc
                     LIMIT 3 OFFSET 1
-    - indexing in sql 
+    - indexing in sql
     - interfaces
     - abstract class and method
     - Decorator working with 2 Decorators

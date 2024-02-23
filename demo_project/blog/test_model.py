@@ -2,21 +2,21 @@ from blog.models import Blog, Entry
 
 
 #creating foreign key object
-from datetime import date                                                                                                                        
-codal = Blog.objects.create(name="codal")
-pop = Blog.objects.create(name="pop")
-Entry.objects.create(blog=codal,headline="codal welcomes you",pub_date=date(2024,1,1))
+from datetime import date
+codal = Blog.objects.create(name='codal')
+pop = Blog.objects.create(name='pop')
+Entry.objects.create(blog=codal,headline='codal welcomes you',pub_date=date(2024,1,1))
 
 
-# Updating foreign key field 
+# Updating foreign key field
 entry = Entry.objects.get(pk=1)
-cheese_blog = Blog.objects.get(name="Codal")
+cheese_blog = Blog.objects.get(name='Codal')
 entry.blog = cheese_blog
 entry.save()
 
 #adding many to many data
 from blog.models import Author
-joe = Author.objects.create(name="joe") 
+joe = Author.objects.create(name='joe')
 entry.authors.add(joe)
 
 #retrieving all objects
@@ -27,7 +27,7 @@ Entry.objects.filter(pub_date__year=2024)
 Entry.objects.all().filter(pub_date__year=2024)
 
 #filter querysets are unique
-q1 = Entry.objects.filter(headline__startswith="What")
+q1 = Entry.objects.filter(headline__startswith='What')
 q2 = q1.exclude(pub_date__gte= date.today())
 q3 = q1.filter(pub_date__gte= date.today())
 
@@ -40,25 +40,25 @@ Entry.objects.all()[:5]
 Entry.objects.all()[5:10]
 
 #order by
-Entry.objects.order_by("headline")[0]
+Entry.objects.order_by('headline')[0]
 
 #exact and iexact
-Entry.objects.get(headline__exact="codal welcomes meshw") 
-Entry.objects.get(headline__iexact="codal welcomes meshw") 
+Entry.objects.get(headline__exact='codal welcomes meshw')
+Entry.objects.get(headline__iexact='codal welcomes meshw')
 
 # contains
-Entry.objects.get(headline__contains="meshw")   
+Entry.objects.get(headline__contains='meshw')
 
 #istartswith and iendswith
-Entry.objects.filter(headline__istartswith="codal") 
-Entry.objects.filter(headline__iendswith="meshw") 
+Entry.objects.filter(headline__istartswith='codal')
+Entry.objects.filter(headline__iendswith='meshw')
 
-#lookups 
-Entry.objects.filter(blog__name="codal")
-Blog.objects.filter(entry__headline__contains="codal")
+#lookups
+Entry.objects.filter(blog__name='codal')
+Blog.objects.filter(entry__headline__contains='codal')
 Blog.objects.filter(entry__authors__name__isnull=True)
-Blog.objects.filter(entry__headline__contains="codal", entry__pub_date__year=2024)
-Blog.objects.exclude(entry__headline__contains="codal",entry__pub_date__year=2024)
+Blog.objects.filter(entry__headline__contains='codal', entry__pub_date__year=2024)
+Blog.objects.exclude(entry__headline__contains='codal',entry__pub_date__year=2024)
 
 
 #pk shortcuts
@@ -75,25 +75,25 @@ bool(querysets)
 
 # storing none values
 from blog.models import Dog
-Dog.objects.create(name="max",data=None)
+Dog.objects.create(name='max',data=None)
 Dog.objects.filter(data__isnull=True)
-Dog.objects.create(name="Meg", data={"breed": "collie", "owner": None})
-Dog.objects.filter(data__breed="collie")
+Dog.objects.create(name='Meg', data={'breed': 'collie', 'owner': None})
+Dog.objects.filter(data__breed='collie')
 
 
 
 #contains and contained
-Dog.objects.filter(data__contains={"owner": "Bob"})  
-Dog.objects.filter(data__contained_by={"breed": "collie", "owner": "Bob"})
+Dog.objects.filter(data__contains={'owner': 'Bob'})
+Dog.objects.filter(data__contained_by={'breed': 'collie', 'owner': 'Bob'})
 
 #has_key and has_keys and has_any_keys
-Dog.objects.filter(data__has_key="owner")
-Dog.objects.filter(data__has_keys=["breed", "owner"])
-Dog.objects.filter(data__has_any_keys=["owner", "breed"])
+Dog.objects.filter(data__has_key='owner')
+Dog.objects.filter(data__has_keys=['breed', 'owner'])
+Dog.objects.filter(data__has_any_keys=['owner', 'breed'])
 
 #comparison
-Entry1 = Entry.objects.get(pk=2) 
-Entry2 = Entry.objects.get(pk=3) 
+Entry1 = Entry.objects.get(pk=2)
+Entry2 = Entry.objects.get(pk=3)
 Entry1 == Entry2
 
 #deleting object
@@ -101,47 +101,47 @@ Entry1.delete()
 Entry.objects.filter(pub_date__year=2024).delete()
 
 #updating objects
-Entry.objects.filter(pub_date__year=2024).update(headline="codal")
+Entry.objects.filter(pub_date__year=2024).update(headline='codal')
 
 
 #Aggregation
 
 # average
-from django.db.models import Avg 
+from django.db.models import Avg
 from blog.models import *
-Book.objects.aggregate(Avg("price"))
-Book.objects.aggregate(average_price=Avg("price"))
+Book.objects.aggregate(Avg('price'))
+Book.objects.aggregate(average_price=Avg('price'))
 
 #min and max
 from django.db.models import Max, Min
-Book.objects.aggregate(Max("price"), Min("price"))
+Book.objects.aggregate(Max('price'), Min('price'))
 
 # Counting specific argument
 from django.db.models import Count
-q = Book.objects.annotate(Count("authors"))
+q = Book.objects.annotate(Count('authors'))
 q[0]
 q[0].authors__count
 
 # Combining multiple aggregations
-q = Book.objects.annotate(Count("authors"), Count("store"))
+q = Book.objects.annotate(Count('authors'), Count('store'))
 q[0].authors__count
 q[0].store__count
 
 #To avoid duplicate items we can use distinct parameter
-q = Book.objects.annotate(Count("authors", distinct=True), Count("store", distinct=True))
+q = Book.objects.annotate(Count('authors', distinct=True), Count('store', distinct=True))
 
 #Join and aggregates
 
-Store.objects.aggregate(min_price=Min("books__price"), max_price=Max("books__price"))
-Store.objects.annotate(min_price=Min("books__price"), max_price=Max("books__price"))
+Store.objects.aggregate(min_price=Min('books__price'), max_price=Max('books__price'))
+Store.objects.annotate(min_price=Min('books__price'), max_price=Max('books__price'))
 
 #Following relationship backwards
 
-Publisher.objects.annotate(Count("book"))
-Publisher.objects.aggregate(oldest_pubdate=Min("book__pubdate"))
+Publisher.objects.annotate(Count('book'))
+Publisher.objects.aggregate(oldest_pubdate=Min('book__pubdate'))
 
 #order of annotate
-a, b = Publisher.objects.filter(book__rating__gt=3.0).annotate(avg_rating=Avg("book__rating"))
+a, b = Publisher.objects.filter(book__rating__gt=3.0).annotate(avg_rating=Avg('book__rating'))
 
 
 #Relationships
@@ -167,7 +167,7 @@ class Entry(models.Model):
     pub_date = models.DateField()
 
 #Many to many relation
-    
+
 class Author(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
@@ -178,13 +178,13 @@ class Entry(models.Model):
     authors = models.ManyToManyField(Author)
 
 #Raw queries
-    
-for p in Entry.manager.raw('SELECT * FROM blog_entry'): 
+
+for p in Entry.manager.raw('SELECT * FROM blog_entry'):
      print(p)
 
 #index lookup
-Entry.manager.raw("SELECT * FROM blog_entry")[:]
-Entry.manager.raw("SELECT * FROM blog_entry")[0]
+Entry.manager.raw('SELECT * FROM blog_entry')[:]
+Entry.manager.raw('SELECT * FROM blog_entry')[0]
 
 
 # Transaction
@@ -205,7 +205,7 @@ from django.db import IntegrityError
 
 @transaction.atomic
 def viewfunc(request):
-    
+
     try:
         with transaction.atomic():
             #generate_relationships()
@@ -235,22 +235,22 @@ def viewfunc(request):
 
 # cached attribute
 entry = Entry.manager.get(id=2)
-entry.blog  
+entry.blog
 entry.blog  #cached, no db access
 
 # explain()
-e = Entry.manager.all() 
+e = Entry.manager.all()
 e.explain()
 
 #Retrieve individual objects using a unique, indexed column
 entry = Entry.manager.get(id=2) #faster
-entry = Entry.manager.get(headline="codal") 
+entry = Entry.manager.get(headline='codal')
 
 # Create in bulk
 Entry.objects.bulk_create(
     [
-        Entry(headline="This is a test"),
-        Entry(headline="This is only a test"),
+        Entry(headline='This is a test'),
+        Entry(headline='This is only a test'),
     ]
 )
 
@@ -262,9 +262,9 @@ Entry.manager.remove(a, b)
 
 #Q function
 from django.db.models import Q
-Blog.objects.filter(Q(name__startswith="codal")| Q(name__startswith="polls"))
+Blog.objects.filter(Q(name__startswith='codal')| Q(name__startswith='polls'))
 
 #F function
 from django.db.models import F
-Entry.manager.filter(number_of_comments__gt=F("number_of_pingbacks"))
-Entry.manager.filter(authors__name=F("blog__name"))
+Entry.manager.filter(number_of_comments__gt=F('number_of_pingbacks'))
+Entry.manager.filter(authors__name=F('blog__name'))
