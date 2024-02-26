@@ -74,11 +74,13 @@ class LoginView(APIView):
             )
 
         token, created = Token.objects.get_or_create(user=user)
-
+        data = serializer.data
+        data['token'] = str(token)
         return Response(
             {
-                'name': user.username,
-                'token': str(token),
+                'data': data,
+                'status': status.HTTP_200_OK,
+                'message': 'Login successful',
             }
         )
 
