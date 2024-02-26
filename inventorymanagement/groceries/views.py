@@ -39,13 +39,11 @@ class RegisterUser(APIView):
             )
 
         user = serializer.save()
-        token, created = Token.objects.get_or_create(user=user)
 
         return Response(
             {
                 'status': status.HTTP_200_OK,
                 'payload': serializer.data,
-                'token': str(token),
                 'message': 'you data is registered',
             }
         )
@@ -84,9 +82,8 @@ class LoginView(APIView):
 
         return Response(
             {
-                'status': status.HTTP_200_OK,
+                'name': user.username,
                 'token': str(token),
-                'message': 'Login successful',
             }
         )
 
@@ -158,7 +155,10 @@ class ProductListView(viewsets.ModelViewSet):
         try:
             instance = self.get_object()
             instance.delete()
-            return Response({'detail': 'Item deleted successfully.'})
+
+            return Response(
+                {'detail': 'Item deleted successfully.'}, status=status.HTTP_200_OK
+            )
 
         except Product.DoesNotExist:
             return Response(
