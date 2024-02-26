@@ -2,17 +2,26 @@ from rest_framework import serializers
 from .models import Item
 from django.contrib.auth.models import User
 
+
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = '__all__'
-    
+        fields = "__all__"
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "password"]
+        fields = "__all__"
 
-# Normal serializer.Serializer 
+    def create(self, validated_data):
+        user = User.objects.create(username=validated_data["username"])
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
+
+
+# Normal serializer.Serializer
 class ItemSerializer(serializers.Serializer):
     name = serializers.CharField()
     price = serializers.IntegerField()
@@ -22,25 +31,27 @@ class ItemSerializer(serializers.Serializer):
         return Item.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.price = validated_data.get('price', instance.price)
-        instance.category = validated_data.get('category', instance.category)
+        instance.name = validated_data.get("name", instance.name)
+        instance.price = validated_data.get("price", instance.price)
+        instance.category = validated_data.get("category", instance.category)
         instance.save()
         return instance
-    
-#Model serializer example
+
+
+# Model serializer example
 class ItemSerializer(serializers.ModelSerializer):
-    url = serializers.CharField(source='get_absolute_url', read_only=True)
+    url = serializers.CharField(source="get_absolute_url", read_only=True)
 
     class Meta:
         model = Item
-        fields = ['id', 'name', 'price', 'category']
-        #exclude = ['price']
+        fields = ["id", "name", "price", "category"]
+        # exclude = ['price']
         # depth = 1
-        read_only_fields = ['name']
+        read_only_fields = ["name"]
 
-#Hyperlinked model serializer
+
+# Hyperlinked model serializer
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['url', 'id', 'name', 'price', 'category']
+        fields = ["url", "id", "name", "price", "category"]

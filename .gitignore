@@ -1,2 +1,4 @@
 /.idea
 **/__pycache__/
+inventorymanagement/inventorymanagement/env.py
+.pre-commit-config.yaml
