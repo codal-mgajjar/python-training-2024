@@ -55,3 +55,37 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
         fields = ['url', 'id', 'name', 'price', 'category']
+
+#primary key related field
+class ItemSerializerForPrimaryKey(serializers.ModelSerializer):
+    tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Item
+        fields = ['id', 'name', 'price', 'category', 'tracks']
+
+#hyperlinked key related field
+class ItemSerializerForHyperlink(serializers.ModelSerializer):
+    tracks = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='track-detail'
+    )
+
+    class Meta:
+        model = Item
+        fields =  ['id', 'name', 'price', 'category', 'track-detail']
+
+
+#nested serializer
+class UserNestedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+class ItemNestedSerializer(serializers.ModelSerializer):
+    tracks = UserNestedSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Item
+        fields = ['name','tracks']
