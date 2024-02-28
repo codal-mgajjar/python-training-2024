@@ -1,11 +1,11 @@
-#Create table 
+#Create table
 
 CREATE TABLE Employee(
 name VARCHAR(255),
 age int
 );
 
-#Insert data 
+#Insert data
 
 INSERT INTO Employee (name, age)
 VALUES('Meshw', 21);
@@ -29,12 +29,12 @@ UPDATE employee
 SET position = 'intern'
 WHERE name = 'Meshw';
 
-# Alter column name 
+# Alter column name
 
 ALTER TABLE employee
 ALTER COLUMN age TYPE VARCHAR(2);
 
-# Delete column 
+# Delete column
 
 ALTER TABLE employee
 DROP COLUMN position;

@@ -20,8 +20,8 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("polls/", include("polls.urls")),
-    path("employee/", include("employee.urls")),
+    path('polls/', include('polls.urls')),
+    path('employee/', include('employee.urls')),
 
     path('', include('addition.urls')),
     path('', include('user_authentication.urls')),
@@ -33,4 +33,3 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

@@ -2,7 +2,7 @@
 
 - DRF overview
 - Installation
-- basic user api 
+- basic user api
 - research for html charts to pdf
 
 13-2-2024
@@ -15,3 +15,17 @@
 - Request and responses
 - Class based views
 - Authentications and permissions
+
+15-2-2024
+
+- Explored postman
+- Relationships and hyperlinked APIs
+- Viewsets and routers
+
+
+16-2-2024
+
+- Request
+- response
+- views
+- setting up backend configs for jst

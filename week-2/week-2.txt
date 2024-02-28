@@ -5,7 +5,7 @@ Python Basics
 
 - Variables
         - String
-        - Int 
+        - Int
         - Casting
         - Type function
         - single or double quotes
@@ -14,14 +14,14 @@ Python Basics
 
 
 - Python datatypes
-        1. String 
+        1. String
         2. numbers(int, float, complex)
         3. Set(set.py)
                 - Intersection
                 - Union
                 - diffrence
-                - symmetric diffrence 
-                - superset 
+                - symmetric diffrence
+                - superset
                 - subset
                 - disjoint check
                 - In operator
@@ -29,7 +29,7 @@ Python Basics
                 - discard function
                 - remove function
                 - update
-                - unique elements out of list        
+                - unique elements out of list
         4. Lists (pending)
                 - declaration
                 - concatenation
@@ -41,7 +41,7 @@ Python Basics
                 - range in Tuple
                 - length, min, max
                 - concatenation
-                - indexing 
+                - indexing
 
         6. Dictionary(dictionary.py)
                 - making copy of dictionary
@@ -100,7 +100,7 @@ Python Basics
         - continue
         - for Loop
         - while Loop
-        - loop with else 
+        - loop with else
         - pass
 
 - conditional
@@ -128,7 +128,7 @@ Python Basics
         - object
         - __init__ method
         - __str__ method
-        - global, class and instance variable 
+        - global, class and instance variable
         - default constructor
         - parameterized constructor
         - both constructor

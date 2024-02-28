@@ -1,15 +1,15 @@
 #break statement
 
-i = 0 
+i = 0
 while i < 7:
     print(i)
     if i == 4:
-        print("break")
+        print('break')
         break
     i += 1
 
 #continue
-    
+
 for i in (0, 1, 2, 3, 4, 5):
     if i == 2 or i == 4:
         continue
@@ -20,7 +20,7 @@ for i in range(5):
     print(i)
 
 #loop with else
-    
+
 for i in range(3):
     print(i)
 else:
@@ -32,7 +32,7 @@ while j<5:
     print(j)
     j += 1
 
-#pass 
-    
+#pass
+
 while i == j:
     pass

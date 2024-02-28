@@ -1,0 +1,31 @@
+19-2-2024
+
+- Generic Views
+    - Mixins
+    - concrete view classes
+- Viewsets
+
+20-2-2024
+
+- Routers
+- parsers
+- serializers
+
+21-2-2024
+
+- Authentication
+
+22-2-2024
+
+- Authentication
+- Permissions
+- Caching
+- Inventory management app
+
+23-2-2024
+
+- comments solved
+- throteling overview
+- foreignkey
+- many to many
+- pre-commit

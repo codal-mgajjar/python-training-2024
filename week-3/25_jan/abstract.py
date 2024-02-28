@@ -3,7 +3,7 @@ class Car(ABC):
     @abstractmethod
     def wheels(self):
         pass
-    
+
 class Mercedes (Car):
     def wheels(self):
         pass

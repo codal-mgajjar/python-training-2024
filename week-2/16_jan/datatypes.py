@@ -1,6 +1,6 @@
 #String
 
-s1 = "abcdefg"
+s1 = 'abcdefg'
 s2 = 'abcdefg'
 print(s1)
 print(s2)
@@ -40,8 +40,8 @@ print(f3)
 
 #Lists
 
-l1 = ["sdksdiv", "dkidve", "a", "a",123]
-l2= [3,"efef"]
+l1 = ['sdksdiv', 'dkidve', 'a', 'a',123]
+l2= [3,'efef']
 print(l1)
 print(l1[0])
 print(l1[::-1])
@@ -78,7 +78,7 @@ print(type(n))
 
 #bytes
 
-bb = b"hello"
+bb = b'hello'
 print(bb)
 print(type(bb))
 print(bb.decode())
@@ -88,6 +88,3 @@ print(bb.decode())
 
 r = range(5)
 print(r)
-
-
-

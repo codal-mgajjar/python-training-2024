@@ -5,7 +5,7 @@
 try:
     import sklearn
 except ImportError:
-    print("Import sklearn")
+    print('Import sklearn')
     print(str(ImportError))
 
 #installing pakages through python file
@@ -21,4 +21,3 @@ pip.main(['uninstall','pandas'])
 
 
 #installing requirements.txt - pip freeze > requirements.txt
-

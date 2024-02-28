@@ -1,9 +1,9 @@
-#List 
+#List
 print([x if x in 'aeiou' else '*' for x in 'hello world'])
 
 #Lambda
 str_upper = lambda str:str.upper()
-print(str_upper("hello"))
+print(str_upper('hello'))
 
 #Map
 #with lambda
@@ -11,10 +11,10 @@ l1 = list(map(lambda a : a * a, range(1,10)))
 print(l1)
 
 #without lambda
-l2 = list(map(len,["hello", "world"]))
+l2 = list(map(len,['hello', 'world']))
 print(l2)
 
-#filter 
+#filter
 #with lambda
 print([i for i in filter(lambda x: x%2==0, [1,2,3,4,5,6,7,8,9,10])])
 
@@ -24,7 +24,7 @@ def f(i):
         return i
 print([i for i in filter(f, [1,2,3,4,5,6,7,8,9,10])])
 
-#reduce 
+#reduce
 #reduce with lambda
 
 from functools import reduce

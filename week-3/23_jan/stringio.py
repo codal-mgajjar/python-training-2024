@@ -1,11 +1,11 @@
 from io import StringIO, BytesIO
 
 #read in StringIO
-data = StringIO("hello")
+data = StringIO('hello')
 print(data.read())
 
 #write in StringIO
-data.write(" World")
+data.write(' World')
 data.seek(0)
 print(data.read())
 
@@ -18,6 +18,6 @@ print(data.closed)
 
 
 #bytes IO
-stream_str = BytesIO(b"JournalDev Python: \x00\x01")
+stream_str = BytesIO(b'JournalDev Python: \x00\x01')
 print(stream_str.getvalue())
 stream_str.close()
