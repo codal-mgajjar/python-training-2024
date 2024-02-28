@@ -16,3 +16,10 @@
     - post-delete
     - m2mchanged
     - implementation in inventory management app
+    
+- Middleware
+    - __init__ response
+    - Activating Middleware
+    - Middleware ordering
+    - __call__ method
+    - CSRF Middleware

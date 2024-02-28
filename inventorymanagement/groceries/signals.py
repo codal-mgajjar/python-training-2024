@@ -4,7 +4,7 @@ from .models import Product
 
 
 @receiver(post_save, sender=Product)
-def product_saved(sender, instance, created, **kwargs):
+def product_saved(instance, created, **kwargs):
     if created:
         print(f"Product {instance.name} created by {instance.created_by}")
     else:
@@ -12,12 +12,12 @@ def product_saved(sender, instance, created, **kwargs):
 
 
 @receiver(post_delete, sender=Product)
-def product_deleted(sender, instance, **kwargs):
+def product_deleted(instance, **kwargs):
     print(f"Product {instance.name} deleted by {instance.created_by}")
 
 
 @receiver(m2m_changed, sender=Product.categories.through)
-def product_categories_changed(sender, instance, action, pk_set, **kwargs):
+def product_categories_changed(instance, action, pk_set, **kwargs):
     if action == "post_add":
         print(f"Categories added to product {instance.name}: {pk_set}")
     elif action == "post_remove":
