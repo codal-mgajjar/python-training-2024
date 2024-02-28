@@ -7,3 +7,12 @@
 
 - JST backend setup
 - Validators
+
+28-2-1024
+
+- Signals
+    - Receiver
+    - post-save
+    - post-delete
+    - m2mchanged
+    - implementation in inventory management app
