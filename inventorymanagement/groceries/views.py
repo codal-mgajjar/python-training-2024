@@ -107,31 +107,6 @@ class ProductListView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-
-    def create(self, request, *args, **kwargs):
-        category_ids = request.data.get('categories', [])
-
-        if not Category.objects.filter(id__in=category_ids).exists():
-            return Response(
-                {'error': 'One or more selected categories do not exist'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        product_data = request.data.copy()
-        product_data['created_by'] = self.request.user.id
-        product_serializer = ProductSerializer(data=product_data)
-
-        if product_serializer.is_valid():
-            product = product_serializer.save()
-            product.categories.set(category_ids)
-            return Response(product_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(
-                product_serializer.errors, status=status.HTTP_400_BAD_REQUEST
-            )
-
     @action(detail=True, methods=['PATCH'])
     def update_product(self, request, pk=None):
         try:
