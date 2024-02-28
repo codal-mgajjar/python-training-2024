@@ -107,6 +107,9 @@ class ProductListView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
     @action(detail=True, methods=['PATCH'])
     def update_product(self, request, pk=None):
         try:

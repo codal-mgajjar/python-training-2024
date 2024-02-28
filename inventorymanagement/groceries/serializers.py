@@ -43,6 +43,20 @@ class ProductSerializer(serializers.ModelSerializer):
         product.categories.set(category_ids)
         return product
 
+    def validate_category_ids(self, value):
+        if not Category.objects.filter(id__in=value).exists():
+            raise serializers.ValidationError(
+                'One or more selected categories do not exist.'
+            )
+        return value
+
+    def create(self, validated_data):
+        category_ids = validated_data.pop('categories', [])
+        validated_data['created_by'] = self.context['request'].user
+        product = super().create(validated_data)
+        product.categories.set(category_ids)
+        return product
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
