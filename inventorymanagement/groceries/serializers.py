@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Product, Category
+from django.core.validators import RegexValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -60,6 +61,17 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    name = serializers.CharField(
+        max_length=50,
+        validators=[
+            RegexValidator(
+                regex=r"^[A-Za-z\s]+$",
+                message="Name can only contain letters and spaces.",
+                code="invalid_name",
+            ),
+        ],
+    )
+
     class Meta:
         model = Category
         fields = ["id", "name"]
