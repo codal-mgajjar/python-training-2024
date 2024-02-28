@@ -7,44 +7,81 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_dog'),
+        ("blog", "0002_dog"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Authors',
+            name="Authors",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('age', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("age", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Publisher',
+            name="Publisher",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=300)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=300)),
             ],
         ),
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=300)),
-                ('pages', models.IntegerField()),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('rating', models.FloatField()),
-                ('pubdate', models.DateField()),
-                ('authors', models.ManyToManyField(to='blog.author')),
-                ('publisher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.publisher')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=300)),
+                ("pages", models.IntegerField()),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("rating", models.FloatField()),
+                ("pubdate", models.DateField()),
+                ("authors", models.ManyToManyField(to="blog.author")),
+                (
+                    "publisher",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="blog.publisher"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Store',
+            name="Store",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=300)),
-                ('books', models.ManyToManyField(to='blog.book')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=300)),
+                ("books", models.ManyToManyField(to="blog.book")),
             ],
         ),
     ]

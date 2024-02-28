@@ -1,28 +1,30 @@
-#map function
+# map function
 def square(a):
     return a * a
+
+
 b = list(map(square, range(1, 5)))
 print(b)
 
 
-#length func
-l = list(map(len, ['rdgr','rgrgdfds']))
+# length func
+l = list(map(len, ["rdgr", "rgrgdfds"]))
 print(l)
 
-#filter function
-arr = [1,2,3,4,5,6]
-print([i for i in filter(lambda x: x>4, arr)])
+# filter function
+arr = [1, 2, 3, 4, 5, 6]
+print([i for i in filter(lambda x: x > 4, arr)])
 
 
 from functools import reduce
 
-#reduce function
-print(reduce(lambda x, y : x + y, [1,2,3,4,5,6]))
+# reduce function
+print(reduce(lambda x, y: x + y, [1, 2, 3, 4, 5, 6]))
 
 
-#zip function
-t1 = ['dsfdsf','wdwefef']
-t2 = ['sfsefe', 'wfewfwew']
+# zip function
+t1 = ["dsfdsf", "wdwefef"]
+t2 = ["sfsefe", "wfewfwew"]
 
-t3 = list(zip(t1,t2))
+t3 = list(zip(t1, t2))
 print(t3)

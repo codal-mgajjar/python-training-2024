@@ -26,7 +26,7 @@ class ItemListView(APIView):
 # function based view
 @api_view()
 def hello_world(request):
-    return Response({'message': 'Hello world'})
+    return Response({"message": "Hello world"})
 
 
 # Api policy decorator
@@ -35,13 +35,13 @@ from rest_framework.throttling import UserRateThrottle
 
 
 class OncePerDayUserThrottle(UserRateThrottle):
-    rate = '1/day'
+    rate = "1/day"
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @throttle_classes([OncePerDayUserThrottle])
 def view(request):
-    return Response({'message': 'Hello for today! See you tomorrow!'})
+    return Response({"message": "Hello for today! See you tomorrow!"})
 
 
 # View schema decorator
@@ -53,13 +53,13 @@ class CustomAutoSchema(AutoSchema):
     def get_link(self, path, method, base_url):
         # override view introspection here...
         def view_schema_decorator():
-            return Response({'message': 'Hello for today!'})
+            return Response({"message": "Hello for today!"})
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @schema(CustomAutoSchema())
 def view_schema_decorator(request):
-    return Response({'message': 'Hello for today! See you tomorrow!'})
+    return Response({"message": "Hello for today! See you tomorrow!"})
 
 
 # Genericview
@@ -122,15 +122,15 @@ class ItemsViewSet(viewsets.ModelViewSet):
 
     # Routing for extra actions
     @action(
-        methods=['post'], detail=True, url_path='change-price', url_name='change_price'
+        methods=["post"], detail=True, url_path="change-price", url_name="change_price"
     )
     def set_price(self, request, pk=None):
         item = self.get_object()
-        new_price = request.data.get('price')
+        new_price = request.data.get("price")
         item.price = new_price
         item.save()
         return Response(
-            {'message': 'Price updated successfully', 'new_price': new_price}
+            {"message": "Price updated successfully", "new_price": new_price}
         )
 
 
@@ -149,7 +149,7 @@ class FileUploadView(APIView):
     parser_classes = [FileUploadParser]
 
     def put(self, request, filename, format=None):
-        file_obj = request.data['file']
+        file_obj = request.data["file"]
         # ...
         # do some stuff with uploaded file
         # ...
@@ -177,7 +177,7 @@ class UserCountView(APIView):
     @method_decorator(vary_on_cookie)
     def get(self, request, format=None):
         user_count = User.objects.filter().count()
-        content = {'user_count': user_count}
+        content = {"user_count": user_count}
         return Response(content)
 
 
@@ -215,15 +215,15 @@ class LoginView(APIView):
         serializer = UserSerializer(data=request.data)
 
         user = authenticate(
-            username=serializer.data['username'],
-            password=str(serializer.data['password']),
+            username=serializer.data["username"],
+            password=str(serializer.data["password"]),
         )
         if user:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            return Response({"token": token.key})
         else:
             return Response(
-                {'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED
+                {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
             )
 
 
@@ -234,9 +234,9 @@ class RegisterUser(APIView):
         if not serializer.is_valid():
             return Response(
                 {
-                    'status': status.HTTP_403_FORBIDDEN,
-                    'errors': serializer.errors,
-                    'message': 'Something went wrong',
+                    "status": status.HTTP_403_FORBIDDEN,
+                    "errors": serializer.errors,
+                    "message": "Something went wrong",
                 }
             )
 
@@ -244,10 +244,10 @@ class RegisterUser(APIView):
         token, created = Token.objects.get_or_create(user=user)
         return Response(
             {
-                'status': status.HTTP_200_OK,
-                'payload': serializer.data,
-                'token': str(token),
-                'message': 'you data is registered',
+                "status": status.HTTP_200_OK,
+                "payload": serializer.data,
+                "token": str(token),
+                "message": "you data is registered",
             }
         )
 

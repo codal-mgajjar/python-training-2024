@@ -26,11 +26,13 @@ this_python = sys.version_info[:2]
 min_version = (3, 7)
 if this_python < min_version:
     message_parts = [
-        'This script does not work on Python {}.{}'.format(*this_python),
-        'The minimum supported Python version is {}.{}.'.format(*min_version),
-        'Please use https://bootstrap.pypa.io/pip/{}.{}/get-pip.py instead.'.format(*this_python),
+        "This script does not work on Python {}.{}".format(*this_python),
+        "The minimum supported Python version is {}.{}.".format(*min_version),
+        "Please use https://bootstrap.pypa.io/pip/{}.{}/get-pip.py instead.".format(
+            *this_python
+        ),
     ]
-    print('ERROR: ' + ' '.join(message_parts))
+    print("ERROR: " + " ".join(message_parts))
     sys.exit(1)
 
 
@@ -48,8 +50,8 @@ def include_setuptools(args):
     Install setuptools only if absent and not excluded.
     """
     cli = not args.no_setuptools
-    env = not os.environ.get('PIP_NO_SETUPTOOLS')
-    absent = not importlib.util.find_spec('setuptools')
+    env = not os.environ.get("PIP_NO_SETUPTOOLS")
+    absent = not importlib.util.find_spec("setuptools")
     return cli and env and absent
 
 
@@ -58,26 +60,26 @@ def include_wheel(args):
     Install wheel only if absent and not excluded.
     """
     cli = not args.no_wheel
-    env = not os.environ.get('PIP_NO_WHEEL')
-    absent = not importlib.util.find_spec('wheel')
+    env = not os.environ.get("PIP_NO_WHEEL")
+    absent = not importlib.util.find_spec("wheel")
     return cli and env and absent
 
 
 def determine_pip_install_arguments():
     pre_parser = argparse.ArgumentParser()
-    pre_parser.add_argument('--no-setuptools', action='store_true')
-    pre_parser.add_argument('--no-wheel', action='store_true')
+    pre_parser.add_argument("--no-setuptools", action="store_true")
+    pre_parser.add_argument("--no-wheel", action="store_true")
     pre, args = pre_parser.parse_known_args()
 
-    args.append('pip')
+    args.append("pip")
 
     if include_setuptools(pre):
-        args.append('setuptools')
+        args.append("setuptools")
 
     if include_wheel(pre):
-        args.append('wheel')
+        args.append("wheel")
 
-    return ['install', '--upgrade', '--force-reinstall'] + args
+    return ["install", "--upgrade", "--force-reinstall"] + args
 
 
 def monkeypatch_for_cert(tmpdir):
@@ -92,16 +94,16 @@ def monkeypatch_for_cert(tmpdir):
     from pip._internal.commands.install import InstallCommand
 
     # We want to be using the internal certificates.
-    cert_path = os.path.join(tmpdir, 'cacert.pem')
-    with open(cert_path, 'wb') as cert:
-        cert.write(pkgutil.get_data('pip._vendor.certifi', 'cacert.pem'))
+    cert_path = os.path.join(tmpdir, "cacert.pem")
+    with open(cert_path, "wb") as cert:
+        cert.write(pkgutil.get_data("pip._vendor.certifi", "cacert.pem"))
 
     install_parse_args = InstallCommand.parse_args
 
     def cert_parse_args(self, args):
         if not self.parser.get_default_values().cert:
             # There are no user provided cert -- force use of bundled cert
-            self.parser.defaults['cert'] = cert_path  # calculated above
+            self.parser.defaults["cert"] = cert_path  # calculated above
         return install_parse_args(self, args)
 
     InstallCommand.parse_args = cert_parse_args
@@ -113,6 +115,7 @@ def bootstrap(tmpdir):
     # Execute the included pip and use it to install the latest pip and
     # setuptools from PyPI
     from pip._internal.cli.main import main as pip_entry_point
+
     args = determine_pip_install_arguments()
     sys.exit(pip_entry_point(args))
 
@@ -124,9 +127,9 @@ def main():
         tmpdir = tempfile.mkdtemp()
 
         # Unpack the zipfile into the temporary directory
-        pip_zip = os.path.join(tmpdir, 'pip.zip')
-        with open(pip_zip, 'wb') as fp:
-            fp.write(b85decode(DATA.replace(b'\n', b'')))
+        pip_zip = os.path.join(tmpdir, "pip.zip")
+        with open(pip_zip, "wb") as fp:
+            fp.write(b85decode(DATA.replace(b"\n", b"")))
 
         # Add the zipfile to sys.path so that we can import it
         sys.path.insert(0, pip_zip)
@@ -33032,5 +33035,5 @@ h000O81x`a)XE<=Dxdi|KqZt4IApigX0000000000w1KM(9{_M^a4%nWWo~3|axZsfVr6b)Z)9n1XLB
 """
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

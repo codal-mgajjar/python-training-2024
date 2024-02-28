@@ -6,17 +6,17 @@ from django.contrib.auth.models import User
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = '__all__'
+        fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
-        user = User.objects.create(username=validated_data['username'])
-        user.set_password(validated_data['password'])
+        user = User.objects.create(username=validated_data["username"])
+        user.set_password(validated_data["password"])
         user.save()
         return user
 
@@ -31,61 +31,62 @@ class ItemSerializer(serializers.Serializer):
         return Item.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.price = validated_data.get('price', instance.price)
-        instance.category = validated_data.get('category', instance.category)
+        instance.name = validated_data.get("name", instance.name)
+        instance.price = validated_data.get("price", instance.price)
+        instance.category = validated_data.get("category", instance.category)
         instance.save()
         return instance
 
 
 # Model serializer example
 class ItemSerializer(serializers.ModelSerializer):
-    url = serializers.CharField(source='get_absolute_url', read_only=True)
+    url = serializers.CharField(source="get_absolute_url", read_only=True)
 
     class Meta:
         model = Item
-        fields = ['id', 'name', 'price', 'category']
+        fields = ["id", "name", "price", "category"]
         # exclude = ['price']
         # depth = 1
-        read_only_fields = ['name']
+        read_only_fields = ["name"]
 
 
 # Hyperlinked model serializer
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['url', 'id', 'name', 'price', 'category']
+        fields = ["url", "id", "name", "price", "category"]
 
-#primary key related field
+
+# primary key related field
 class ItemSerializerForPrimaryKey(serializers.ModelSerializer):
     tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Item
-        fields = ['id', 'name', 'price', 'category', 'tracks']
+        fields = ["id", "name", "price", "category", "tracks"]
 
-#hyperlinked key related field
+
+# hyperlinked key related field
 class ItemSerializerForHyperlink(serializers.ModelSerializer):
     tracks = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='track-detail'
+        many=True, read_only=True, view_name="track-detail"
     )
 
     class Meta:
         model = Item
-        fields =  ['id', 'name', 'price', 'category', 'track-detail']
+        fields = ["id", "name", "price", "category", "track-detail"]
 
 
-#nested serializer
+# nested serializer
 class UserNestedSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
+
 
 class ItemNestedSerializer(serializers.ModelSerializer):
     tracks = UserNestedSerializer(many=True, read_only=True)
 
     class Meta:
         model = Item
-        fields = ['name','tracks']
+        fields = ["name", "tracks"]

@@ -1,6 +1,6 @@
 def dec_with_arg1(argument):
     def timer1(func):
-        print('timer1 run')
+        print("timer1 run")
 
         def wrapper_func1():
             print(f"{argument}")
@@ -14,7 +14,7 @@ def dec_with_arg1(argument):
 
 def dec_with_arg2(argument):
     def timer2(func):
-        print('timer2 run')
+        print("timer2 run")
 
         def wrapper_func2():
             print(f"{argument}")
@@ -27,10 +27,10 @@ def dec_with_arg2(argument):
 
 
 # decorator stacking
-@dec_with_arg2('Welcome')
-@dec_with_arg1('Bye') # hellofunc = dec_with_arg1(hellofunc)
+@dec_with_arg2("Welcome")
+@dec_with_arg1("Bye")  # hellofunc = dec_with_arg1(hellofunc)
 def hello_func():
-    print('Hello')
+    print("Hello")
 
 
 hello_func()
