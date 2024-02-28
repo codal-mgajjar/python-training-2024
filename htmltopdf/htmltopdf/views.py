@@ -2,5 +2,6 @@
 
 from django.shortcuts import render
 
+
 def chart_to_pdf(request):
-    return render(request, '/templates/index.html')
+    return render(request, "/templates/index.html")

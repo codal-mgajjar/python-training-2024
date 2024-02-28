@@ -8,7 +8,7 @@ from quickstart.serializers import GroupSerializer, UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
 
-    queryset = User.objects.all().order_by('-date_joined')
+    queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
