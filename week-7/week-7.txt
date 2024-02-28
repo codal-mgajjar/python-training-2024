@@ -21,3 +21,11 @@
 - Permissions
 - Caching
 - Inventory management app
+
+23-2-2024
+
+- comments solved
+- throteling overview
+- foreignkey
+- many to many
+- pre-commit

@@ -11,10 +11,10 @@ print(s1.union(s2))
 print(s1.difference(s2))
 print(s2.difference(s1))
 
-#symmetric diffrence 
+#symmetric diffrence
 print(s1.symmetric_difference(s2))
 
-#superset 
+#superset
 print(s1.issuperset(s2))
 
 #subset
@@ -48,4 +48,3 @@ s1.update({4, 6})
 l = [2, 4, 5, 5, 3, 1]
 s = set(l)
 print(s)
-

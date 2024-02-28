@@ -1,24 +1,24 @@
 12/1/2024
 
 
-- Installation of VScode 
+- Installation of VScode
 - Installation of python
-- Gone through different commands of git : 
-                                        git init 
+- Gone through different commands of git :
+                                        git init
                                         git add ./(filename)
-                                        git remote origin 
+                                        git remote origin
                                         git commit -m "demo"
                                         git commit -m "ITP-16 #time 2h demo1"
-                                        git push 
+                                        git push
                                         git checkout
-                                        git clone 
-                                        git branch 
+                                        git clone
+                                        git branch
                                         git status
-                                        git pull 
+                                        git pull
                                         ssh-keygen -C test
 
 - Cloned github repo :
-                        Using https : Used "git clone https://github.com/codal-mgajjar/testrepo1.git" command to clone repo using https 
+                        Using https : Used "git clone https://github.com/codal-mgajjar/testrepo1.git" command to clone repo using https
                         Using ssh : - As no keys were added it has error for generating ssh key.
 	                                - Generated ssh key using ssh -C test
 	                                - Added ssh key(ssh-rsa) to the github account

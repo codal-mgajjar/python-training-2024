@@ -1,6 +1,6 @@
 class a:
     def __init__(self):
-        self.name = "max"
+        self.name = 'max'
         self._age = 21
         self.__number = 1
 

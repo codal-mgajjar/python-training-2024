@@ -24,4 +24,3 @@ print(t + t1)
 print(t[0])
 print(t[::-1])
 print(tuple(reversed(t)))
-

@@ -7,14 +7,19 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, LoginUserSerializer, ProductSerializer
+from .serializers import (
+    UserSerializer,
+    LoginUserSerializer,
+    ProductSerializer,
+    CategorySerializer,
+)
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import viewsets, mixins, generics, status, filters
 from rest_framework.decorators import action
 from .permissions import ReadOnly
-from .models import Product
+from .models import Product, Category
 
 
 class RegisterUser(APIView):
@@ -103,7 +108,7 @@ class ProductListView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(created_by=self.request.user)
 
     @action(detail=True, methods=['PATCH'])
     def update_product(self, request, pk=None):
@@ -130,6 +135,7 @@ class ProductListView(viewsets.ModelViewSet):
         try:
             instance = self.get_object()
             instance.delete()
+
             return Response(
                 {'detail': 'Item deleted successfully.'}, status=status.HTTP_200_OK
             )
@@ -138,3 +144,10 @@ class ProductListView(viewsets.ModelViewSet):
             return Response(
                 {'error': 'Item not found.'}, status=status.HTTP_404_NOT_FOUND
             )
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]

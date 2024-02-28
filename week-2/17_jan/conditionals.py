@@ -6,8 +6,8 @@ if n == 0:
 #if elif else
 
 if n < 0:
-    print("Negative")
+    print('Negative')
 elif n > 0:
-    print("positive")
+    print('positive')
 else:
-    print("zero")
+    print('zero')

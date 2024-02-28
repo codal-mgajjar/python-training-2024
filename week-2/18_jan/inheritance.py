@@ -1,23 +1,23 @@
 #Inheritance
 class person:
     def __init__(self, name):
-        self.name = name 
+        self.name = name
 
     def get_name(self):
         print(f"Name is {self.name}")
 
     def isemployee(self):
         return False
-    
+
 class employee(person):
     def isemployee(self):
         return True
 
-obj = person("Jack")
+obj = person('Jack')
 obj.get_name()
 print(obj.isemployee())
 
-obj = employee("max")
+obj = employee('max')
 obj.get_name()
 print(obj.isemployee())
 
@@ -27,7 +27,7 @@ class student():
     def __init__(self,name,age) -> None:
         self.name = name
         self.age = age
-    
+
     def display(self):
         print(self.name, self.age)
 
@@ -36,43 +36,43 @@ class notstudent(student):
         self.sname = name
         self.sage = age
         super().__init__(name, age)
-        
+
     def displayinfo(self):
         super().display()
 
-obj1 = notstudent("meshw",21)
+obj1 = notstudent('meshw',21)
 obj1.displayinfo()
 
 #Multiple Inheritance
 
 class a:
     def __init__(self):
-        self.str1 = "Hello"
+        self.str1 = 'Hello'
         print(self.str1)
 
 class b:
     def __init__(self) -> None:
-        self.str2 = "world"
+        self.str2 = 'world'
         print(self.str2)
 
 class c(a, b):
     def __init__(self):
         a.__init__(self)
         b.__init__(self)
-        print("derived")
-    
+        print('derived')
+
     def printstr(self):
         print(self.str1,self.str2)
-    
+
 ob = c()
 ob.printstr()
 
-#multiple Inheritance 
+#multiple Inheritance
 
 class x:
     def __init__(self,name):
-        self.name = name 
-    
+        self.name = name
+
     def getname(self):
         return self.name
 
@@ -91,8 +91,8 @@ class z(y):
 
     def getnumber(self):
         return self.number
-    
-obj = z("jack",21,456456)
+
+obj = z('jack',21,456456)
 print(obj.getage(),obj.getname(),obj.getnumber())
 
 
@@ -100,9 +100,9 @@ print(obj.getage(),obj.getname(),obj.getnumber())
 
 class q:
     def __init__(self):
-        self.name = "meshw"
+        self.name = 'meshw'
         print(self.name)
-    
+
 class r(q):
     def __init__(self):
         self.age = 22

@@ -19,11 +19,11 @@ print(l1)
 #pop element
 print(l1.pop(0))
 
-#remove 
+#remove
 l1.remove(6)
 print(l1)
 
-#reverse 
+#reverse
 l2.reverse()
 print(l2)
 
@@ -62,4 +62,3 @@ print(any(l3))
 
 #merge list
 l4  = l1+ l2
-

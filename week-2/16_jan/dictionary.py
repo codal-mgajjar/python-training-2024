@@ -1,4 +1,4 @@
-d1 = {1:"a", 2:"b", 3:"c"}
+d1 = {1:'a', 2:'b', 3:'c'}
 
 
 #making copy of dictionary
@@ -6,21 +6,21 @@ d2={**d1}
 print(d2)
 
 #adding new key and value
-d1[4] = "d"
+d1[4] = 'd'
 print(d1)
 
 #modifying value
-d1[4] = "e"
+d1[4] = 'e'
 print(d1)
 
 #delete key value
 del d1[4]
 
 # avoiding keyerror
-print(d1.get(7, "Nothing"))
-print(d1.setdefault(1, "g"))
+print(d1.get(7, 'Nothing'))
+print(d1.setdefault(1, 'g'))
 
-# iterating over dictionary 
+# iterating over dictionary
 for key, value in d1.items():
     print(key, value)
 

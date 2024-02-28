@@ -8,10 +8,10 @@ CREATE TABLE users(
  PRIMARY KEY (id));
 
 BEGIN;
-UPDATE users 
+UPDATE users
 SET gems = gems - 100
 WHERE id=2;
-UPDATE users 
+UPDATE users
 SET gems = gems+100
 WHERE id=1;
 COMMIT;
@@ -20,10 +20,10 @@ SELECT * FROM users;
 # rollback impliment
 
 BEGIN;
-UPDATE users 
+UPDATE users
 SET gems = gems - 100
 WHERE id=2;
-UPDATE users 
+UPDATE users
 SET gems = gems+100
 WHERE id=1;
 SELECT * FROM users;
@@ -32,10 +32,10 @@ SELECT * FROM users;
 
 #Savepoint impliment
 BEGIN;
-UPDATE users 
+UPDATE users
 SET gems = gems - 100
 WHERE id=2;
-UPDATE users 
+UPDATE users
 SET gems = gems+100
 WHERE id=1;
 SAVEPOINT bijo;

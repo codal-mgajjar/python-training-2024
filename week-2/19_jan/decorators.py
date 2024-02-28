@@ -9,7 +9,7 @@ class decorator:
 
 @decorator
 def hello():
-    print("hello")
+    print('hello')
 
 hello()
 
@@ -39,7 +39,7 @@ class timeDec:
     def __call__(self, *args, **kwargs):
         print(time.time_ns())
         self.func()
-        print(("2 second delayed"))
+        print(('2 second delayed'))
 
 
 @timeDec
@@ -47,4 +47,3 @@ def timeDelay():
     return time.sleep(2)
 
 timeDelay()
-

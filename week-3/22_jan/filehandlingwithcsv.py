@@ -4,7 +4,7 @@ import csv
 fields = ['name','branch','year']
 rows = [['Meshw','CE',7],
         ['Yash','CE',5]]
-filename = "week-3/22_jan/temp.csv"
+filename = 'week-3/22_jan/temp.csv'
 with open(filename,'w') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
@@ -18,7 +18,7 @@ rows = []
 
 with open('week-3/22_jan/temp.csv','r') as csvfile:
     csvreader = csv.reader(csvfile)
-    
+
     fields = next(csvreader)
     for row in csvreader:
         rows.append(row)
@@ -26,7 +26,7 @@ with open('week-3/22_jan/temp.csv','r') as csvfile:
     for row in rows[:5]:
     # parsing each column of a row
         for col in row:
-            print("%10s" % col, end=" "),
+            print('%10s' % col, end=' '),
         print('\n')
 
 
@@ -46,7 +46,7 @@ mydict = [
     {'branch': 'MCE', 'cgpa': '7.8', 'name': 'Prateek', 'year': '3'},
     {'branch': 'EP', 'cgpa': '9.1', 'name': 'Sahil', 'year': '2'}
 ]
- 
+
 df = pd.DataFrame(mydict)
- 
+
 df.to_csv('week-3/22_jan/output.csv', index=False)
