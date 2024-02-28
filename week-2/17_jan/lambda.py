@@ -1,19 +1,19 @@
-#lambda function
+# lambda function
 
-greet = lambda : 'hello'
+greet = lambda: "hello"
 print(greet())
 
-#Upper case function
+# Upper case function
 
-str_upper = lambda str:str.upper()
-print(str_upper('hello'))
+str_upper = lambda str: str.upper()
+print(str_upper("hello"))
 
-#square using lambda
+# square using lambda
 
-sq = lambda s: s*s
+sq = lambda s: s * s
 print(sq(5))
 
-#sort list using lambda
+# sort list using lambda
 
-l2 = lambda l:sorted(l)
-print(l2([4,2,1,5,2,1,4]))
+l2 = lambda l: sorted(l)
+print(l2([4, 2, 1, 5, 2, 1, 4]))

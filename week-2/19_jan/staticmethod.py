@@ -9,13 +9,13 @@ class Student:
         if Student.validate_name(first_name) and Student.validate_name(last_name):
             return cls(first_name, last_name)
         else:
-            print('Invalid Names')
+            print("Invalid Names")
 
     @staticmethod
     def validate_name(name):
         return len(name) <= 10
 
 
-obj = Student.get_from_string('ddkjfejfej jifj')
+obj = Student.get_from_string("ddkjfejfej jifj")
 print(obj.first_name)
 print(obj.last_name)

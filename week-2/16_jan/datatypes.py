@@ -1,7 +1,7 @@
-#String
+# String
 
-s1 = 'abcdefg'
-s2 = 'abcdefg'
+s1 = "abcdefg"
+s2 = "abcdefg"
 print(s1)
 print(s2)
 print(s1[0])
@@ -10,7 +10,7 @@ print(s1[::-1])
 print(s2[0:4:2])
 print(type(s1))
 
-#numbers
+# numbers
 
 int_num = 10
 float_num = 1.4
@@ -23,68 +23,68 @@ print(float_num)
 print(complex_num)
 
 
-#Sets
+# Sets
 
-set1 = {'apple', 'banana', 'cake'}
+set1 = {"apple", "banana", "cake"}
 print(set1)
-set1.add('orange')
+set1.add("orange")
 print(set1)
 
-#Frozenset
+# Frozenset
 
-f1 = {'kdeof', 'deddwdw', 'wdwddqd'}
+f1 = {"kdeof", "deddwdw", "wdwddqd"}
 f2 = frozenset(f1)
-f3 = frozenset(['jdsifjd','ejfefhi'])
+f3 = frozenset(["jdsifjd", "ejfefhi"])
 print(f3)
 
 
-#Lists
+# Lists
 
-l1 = ['sdksdiv', 'dkidve', 'a', 'a',123]
-l2= [3,'efef']
+l1 = ["sdksdiv", "dkidve", "a", "a", 123]
+l2 = [3, "efef"]
 print(l1)
 print(l1[0])
 print(l1[::-1])
-print(l1 *2)
-print(l1+ l2)
+print(l1 * 2)
+print(l1 + l2)
 
-#tuple
+# tuple
 
-t1 = (123,'dsdsd')
+t1 = (123, "dsdsd")
 print(t1[0])
-print(t1 + tuple('3442'))
+print(t1 + tuple("3442"))
 
 
-#dictionary
+# dictionary
 
-d1 = {12 : 'djfijsf', 1: 'dsfd'}
+d1 = {12: "djfijsf", 1: "dsfd"}
 print(d1)
 print(d1[12])
 print(d1.keys())
 print(d1.values())
 
 
-#boolean
+# boolean
 
 b1 = True
 print(type(b1))
 
 
-#nonetype
+# nonetype
 
 n = None
 print(type(n))
 
 
-#bytes
+# bytes
 
-bb = b'hello'
+bb = b"hello"
 print(bb)
 print(type(bb))
 print(bb.decode())
 
 
-#Range
+# Range
 
 r = range(5)
 print(r)
