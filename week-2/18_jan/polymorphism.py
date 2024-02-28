@@ -1,11 +1,13 @@
 class a:
     pass
 
+
 class b(a):
-    print('b')
+    print("b")
+
 
 class c(a):
-    print('c')
+    print("c")
 
 
 obj = a()

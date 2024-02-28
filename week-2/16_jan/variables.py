@@ -1,4 +1,4 @@
-a = 'home'
+a = "home"
 b = 10
 
 # casting
@@ -12,21 +12,23 @@ print(type(c))
 print(type(b))
 
 
-#single or double quotes
+# single or double quotes
 
-x = 'John'
-y = 'john'
+x = "John"
+y = "john"
 
-#global variable
+# global variable
 
-x = 'a'
+x = "a"
+
 
 def f():
     print(x)
+
 
 f()
 
 
 # many values to multiple variables
 
-x, y, z = 1,2,3
+x, y, z = 1, 2, 3

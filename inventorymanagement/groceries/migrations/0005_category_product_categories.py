@@ -6,20 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('groceries', '0004_product_created_by_delete_customuser'),
+        ("groceries", "0004_product_created_by_delete_customuser"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.AddField(
-            model_name='product',
-            name='categories',
-            field=models.ManyToManyField(to='groceries.category'),
+            model_name="product",
+            name="categories",
+            field=models.ManyToManyField(to="groceries.category"),
         ),
     ]

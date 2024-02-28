@@ -1,9 +1,9 @@
-t = ('a', 'b', 'c','d')
+t = ("a", "b", "c", "d")
 
 
-#create single value tuple
+# create single value tuple
 
-t1 = 'a',
+t1 = ("a",)
 print(type(t1))
 
 # range in tuple
@@ -16,11 +16,11 @@ print(len(t))
 print(max(t))
 print(min(t))
 
-#tuple concatenation
+# tuple concatenation
 
 print(t + t1)
 
-#tuple indexing
+# tuple indexing
 print(t[0])
 print(t[::-1])
 print(tuple(reversed(t)))

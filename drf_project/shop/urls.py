@@ -12,32 +12,32 @@ from .views import (
 )
 from rest_framework.authtoken import views
 
-user_list = UserViewSet.as_view({'get': 'list'})
-user_detail = UserViewSet.as_view({'get': 'retrieve'})
+user_list = UserViewSet.as_view({"get": "list"})
+user_detail = UserViewSet.as_view({"get": "retrieve"})
 
 urlpatterns = [
-    path('items/', ItemListView.as_view(), name='item-list'),
-    path('hello/', hello_world, name='hello-world'),
+    path("items/", ItemListView.as_view(), name="item-list"),
+    path("hello/", hello_world, name="hello-world"),
     # path('example_view/', ExampleView.as_view(), name="example-view"),
-    path('view/', view, name='view'),
-    path('view_schema_decorator/', view_schema_decorator, name='view_schema_decorator'),
+    path("view/", view, name="view"),
+    path("view_schema_decorator/", view_schema_decorator, name="view_schema_decorator"),
     # path('users/', UserList.as_view(), name='user-list')
-    path('user_count/', UserCountView.as_view(), name='UserCountView'),
-    path('login/', LoginView.as_view(), name='LoginView'),
-    path('api-token-auth/', views.obtain_auth_token),
-    path('register/', RegisterUser.as_view(), name='register'),
+    path("user_count/", UserCountView.as_view(), name="UserCountView"),
+    path("login/", LoginView.as_view(), name="LoginView"),
+    path("api-token-auth/", views.obtain_auth_token),
+    path("register/", RegisterUser.as_view(), name="register"),
 ]
 
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
+router.register(r"users", UserViewSet, basename="user")
 
 
 # Router example
 from .views import ItemsViewSet
 
-router.register('item', ItemsViewSet, basename='item')
+router.register("item", ItemsViewSet, basename="item")
 urlpatterns += router.urls
 
 # Using include
