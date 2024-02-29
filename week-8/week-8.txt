@@ -23,3 +23,16 @@
     - Middleware ordering
     - __call__ method
     - CSRF Middleware
+
+29-2-2024
+
+- Migrations
+    - Create migration : python manage.py makemigrations shop(app_name)
+    - Apply migration : python manage.py migrate 
+    - Show migration : python manage.py showmigrations
+    - Revert migration : python manage.py migrate shop(app_name) 0004(migration number till which to revert)
+    - Revert last migration : python manage.py migrate shop(app_name) zero
+    - Create empty migration file : python manage.py makemigrations --empty shop(app_name)
+    - Merge migration : python manage.py makemigrations --merge 
+    - squash migration : python manage.py squashmigrations shop(app_name) 0009 0010
+    - Custom Migrations
