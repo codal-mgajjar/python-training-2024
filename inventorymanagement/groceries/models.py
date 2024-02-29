@@ -23,3 +23,10 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class RequestLog(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    method = models.CharField(max_length=10)
+    path = models.CharField(max_length=255)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)

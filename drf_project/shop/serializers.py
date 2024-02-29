@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Item
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, RegexValidator
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -90,3 +91,40 @@ class ItemNestedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ["name", "tracks"]
+
+
+# validators
+class ItemSerializer(serializers.Serializer):
+    name = serializers.CharField(
+        max_length=100,
+        validators=[
+            RegexValidator(
+                regex=r"^[A-Za-z\s]+$",
+                message="Name can only contain letters and spaces.",
+                code="invalid_name",
+            ),
+        ],
+    )
+    price = serializers.DecimalField(
+        max_digits=8, decimal_places=2, validators=[MinValueValidator(limit_value=0)]
+    )
+    category = serializers.CharField(
+        max_length=50,
+        validators=[
+            RegexValidator(
+                regex=r"^[A-Za-z\s]+$",
+                message="Category can only contain letters and spaces.",
+                code="invalid_category",
+            ),
+        ],
+    )
+
+    def create(self, validated_data):
+        return Item.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get("name", instance.name)
+        instance.price = validated_data.get("price", instance.price)
+        instance.category = validated_data.get("category", instance.category)
+        instance.save()
+        return instance
