@@ -3,3 +3,4 @@
 inventorymanagement/inventorymanagement/env.py
 .pre-commit-config.yaml
 /venv
+drf_project/drf_project/env.py
