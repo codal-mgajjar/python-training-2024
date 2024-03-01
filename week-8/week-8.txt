@@ -23,3 +23,53 @@
     - Middleware ordering
     - __call__ method
     - CSRF Middleware
+
+29-2-2024
+
+- Migrations
+    - Create migration 
+        - python manage.py makemigrations shop(app_name)
+        - Creates new migration files based on the changes in models.
+
+    - Apply migration 
+        - python manage.py migrate 
+        - Applies all the migrations pending in database, syncs the database to the models.
+
+    - Show migration 
+        - python manage.py showmigrations
+        - Displays all the migrations in project, also shows which is applied and which one is pending.
+
+    - Revert migration 
+        - python manage.py migrate shop(app_name) 0004(migration number till which to revert)
+        - Reverts the migrations applied to the app, rolling back changes up to the specified migration.
+
+    - Revert all migration 
+        - python manage.py migrate shop(app_name) zero
+        - Reverts all migrations for the app to the initial state.
+    
+    - Create empty migration file 
+        - python manage.py makemigrations --empty shop(app_name)
+        - Creates an empty migration file in the app. It's useful when you need to add custom SQL operations or other changes to the database.
+
+    - Merge migration 
+        - python manage.py makemigrations --merge 
+        - This will create a new migration solving the previous conflict.
+
+    - squash migration 
+        - python manage.py squashmigrations shop(app_name) 0009 0010
+        - Squashes multiple migrations in the app into a single migration file. It helps to reduce the number of migration files.
+
+    - Custom Migrations
+        - Custom migrations involve writing Python code to perform specific database operations that are not covered by model changes.
+
+- Custom Migration: On top of existing, add some code that you can run commands for DB 
+    - def db_operations(apps, schema_editor):
+        schema_editor.execute("ALTER TABLE shop_Item ADD COLUMN db_added_field VARCHAR(50);")
+
+- How many to many field is described in migration 
+    - migrations.AddField(
+            model_name='item',
+            name='t2',
+            field=models.ManyToManyField(related_name='items_t2', to='shop.temp'),
+        ),
+- how migrations works for abstract model 
