@@ -73,3 +73,17 @@
             field=models.ManyToManyField(related_name='items_t2', to='shop.temp'),
         ),
 - how migrations works for abstract model 
+
+1-3-2024
+
+- Django management commands
+    - Default Management commands
+        - django-admin startproject project_name
+        - python manage.py startapp app_name
+        - python manage.py makemigrations
+        - python manage.py migrate
+        - python manage.py runserver
+    - Custom Management commands
+        - Created list products to list products
+        - created update quantity to update products quantity
+        
