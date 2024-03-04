@@ -1,0 +1,16 @@
+3-4-2024
+
+- Fixtures
+    - loaddata 
+        - python manage.py loaddata file.json
+    - dumpdata
+        - Project data 
+            - python manage.py dumpdata > file.json
+        - specific app
+            - python manage.py dumpdata app_name > file.json
+        - exclude app 
+            - python manage.py dumpdata --exclude app_name > file.json
+        - multiple app
+            - python manage.py dumpdata app_name1 app_name2 > file.json
+        - Formatted data
+            - python manage.py dumpdata app_name --indent 2 > file.json

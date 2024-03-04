@@ -1,0 +1,5 @@
+[
+    {"model": "groceries.category", "pk": 1, "fields": {"name": "Electronics"}},
+    {"model": "groceries.category", "pk": 2, "fields": {"name": "Clothing"}},
+    {"model": "groceries.category", "pk": 3, "fields": {"name": "Home Appliances"}}
+]
