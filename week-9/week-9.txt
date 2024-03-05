@@ -14,3 +14,4 @@
             - python manage.py dumpdata app_name1 app_name2 > file.json
         - Formatted data
             - python manage.py dumpdata app_name --indent 2 > file.json
+    - Implemented purchase product functionality
