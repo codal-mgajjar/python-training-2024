@@ -1,0 +1,5 @@
+[
+    {"model": "groceries.product", "pk": 1, "fields": {"name": "Laptop", "description": "Powerful laptop", "price": 1000.0, "quantity": 10, "created_by": 3, "categories": [1]}},
+    {"model": "groceries.product", "pk": 2, "fields": {"name": "T-Shirt", "description": "Cotton T-shirt", "price": 20.0, "quantity": 50, "created_by": 3, "categories": [2]}},
+    {"model": "groceries.product", "pk": 7, "fields": {"name": "Blender", "description": "Kitchen blender", "price": 50.0, "quantity": 15, "created_by": 3, "categories": [3]}}
+]

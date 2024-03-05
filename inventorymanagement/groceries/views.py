@@ -12,6 +12,7 @@ from .serializers import (
     LoginUserSerializer,
     ProductSerializer,
     CategorySerializer,
+    PurchaseSerializer,
 )
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -19,7 +20,7 @@ from django.contrib.auth import authenticate
 from rest_framework import viewsets, mixins, generics, status, filters
 from rest_framework.decorators import action
 from .permissions import ReadOnly
-from .models import Product, Category
+from .models import Product, Category, Purchase
 
 
 class RegisterUser(APIView):
@@ -144,6 +145,59 @@ class ProductListView(viewsets.ModelViewSet):
             return Response(
                 {"error": "Item not found."}, status=status.HTTP_404_NOT_FOUND
             )
+
+    @action(
+        detail=True,
+        methods=["POST"],
+    )
+    def purchase_product(self, request, pk=None):
+        try:
+            product = self.get_object()
+            quantity_to_purchase = request.data.get("quantity", 1)
+
+            if product.quantity < quantity_to_purchase:
+                return Response(
+                    {"error": "Insufficient quantity available."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            purchase_data = {
+                "customer": request.user.id,
+                "product": product.id,
+                "quantity": quantity_to_purchase,
+            }
+
+            purchase_serializer = PurchaseSerializer(data=purchase_data)
+
+            if purchase_serializer.is_valid():
+                purchase_serializer.save()
+                product.quantity -= quantity_to_purchase
+                product.save()
+                return Response({"detail": "Purchase successful."})
+            else:
+                return Response(
+                    {"error": purchase_serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        except Product.DoesNotExist:
+            return Response(
+                {"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+    @action(detail=False, methods=["GET"])
+    def get_user_purchases(self, request):
+        user = request.user
+        purchases = Purchase.objects.filter(customer=user)
+
+        if not purchases.exists():
+            return Response(
+                {"detail": "No purchases found for the user."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = PurchaseSerializer(purchases, many=True)
+        return Response(serializer.data)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
