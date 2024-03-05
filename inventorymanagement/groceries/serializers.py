@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Product, Category, Purchase
+from .models import Product, Category, Purchase, PaymentConfirmation
 from django.core.validators import RegexValidator
 import datetime
 
@@ -143,3 +143,9 @@ class CardInformationSerializer(serializers.Serializer):
         required=True,
         validators=[check_cvc],
     )
+
+
+class PaymentConfirmationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentConfirmation
+        fields = "__all__"

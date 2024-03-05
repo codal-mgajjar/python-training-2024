@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "groceries",
     "rest_framework.authtoken",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "groceries.custom_middleware.RequestLoggingMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "inventorymanagement.urls"
@@ -154,3 +157,8 @@ LOGGING = {
 
 STRIPE_SECRET_KEY = "sk_test_51OqaJ7SBDpjiCmvKlHgz66DIPXjTxoYTeZ7mXs0T40Susguf5lZtp87pWiYiASOPORiVwHgG0eO8F9c9mMyUncjk00z6aJa4vv"
 STRIPE_PUBLISHABLE_KEY = "pk_test_51OqaJ7SBDpjiCmvK7BaJUIND0smiE55pje7H0YiGF89dJsc9HCVnRsD7j09mBkC3teWU4p0MGqEIlZeAJZFWNTSP00FpJ6tsxK"
+SITE_URL = "http://localhost:8000/"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+]

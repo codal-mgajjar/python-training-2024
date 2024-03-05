@@ -40,3 +40,10 @@ class RequestLog(models.Model):
     method = models.CharField(max_length=10)
     path = models.CharField(max_length=255)
     ip_address = models.GenericIPAddressField(null=True, blank=True)
+
+
+class PaymentConfirmation(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    confirmed_at = models.DateTimeField(auto_now_add=True)
+    session_id = models.CharField(max_length=255, unique=True, default=None)

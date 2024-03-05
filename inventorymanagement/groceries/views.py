@@ -20,7 +20,10 @@ from django.contrib.auth import authenticate
 from rest_framework import viewsets, mixins, generics, status, filters
 from rest_framework.decorators import action
 from .permissions import ReadOnly
-from .models import Product, Category, Purchase
+from .models import Product, Category, Purchase, PaymentConfirmation
+import stripe
+from django.conf import settings
+from django.shortcuts import HttpResponse
 
 
 class RegisterUser(APIView):
@@ -205,3 +208,121 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
+
+
+class PurchaseViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    @action(detail=True, methods=["POST"])
+    def create_stripe_checkout_session(self, request, pk=None):
+        prod_id = pk
+        quantity = request.data.get("quantity", 1)
+
+        try:
+            product = Product.objects.get(id=prod_id)
+
+            if int(product.quantity) < int(quantity):
+                return Response(
+                    {"error": "Insufficient quantity available."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            overall_price = int(product.price) * quantity
+
+            checkout_session = stripe.checkout.Session.create(
+                line_items=[
+                    {
+                        "price_data": {
+                            "currency": "usd",
+                            "unit_amount": overall_price * 100,
+                            "product_data": {
+                                "name": product.name,
+                            },
+                        },
+                        "quantity": 1,
+                    }
+                ],
+                mode="payment",
+                metadata={
+                    "product_id": product.id,
+                    "quantity": quantity,
+                },
+                success_url="http://localhost:8000/groceries/success/?session_id={{CHECKOUT_SESSION_ID}}",
+                cancel_url=settings.SITE_URL + "?cancel=true",
+            )
+            session_id = checkout_session.id
+
+            return Response(
+                {"checkout_url": checkout_session.url, "session_id": session_id},
+                status=status.HTTP_200_OK,
+            )
+
+        except Product.DoesNotExist:
+            return Response(
+                {"detail": "Product not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+    @action(detail=False, methods=["POST"])
+    def confirm_payment(self, request, *args, **kwargs):
+        try:
+            session_id = request.data.get("session_id")
+
+            if PaymentConfirmation.objects.filter(session_id=session_id).exists():
+                return Response(
+                    {"error": "Payment already confirmed for this session ID."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            checkout_session = stripe.checkout.Session.retrieve(session_id)
+
+            product_id = checkout_session.metadata.get("product_id")
+            quantity = checkout_session.metadata.get("quantity")
+
+            product = Product.objects.get(id=product_id)
+
+            if int(product.quantity) < int(quantity):
+                return Response(
+                    {"error": "Insufficient quantity available."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            purchase_data = {
+                "customer": request.user.id,
+                "product": product.id,
+                "quantity": quantity,
+            }
+
+            purchase_serializer = PurchaseSerializer(data=purchase_data)
+
+            if purchase_serializer.is_valid():
+                remaining_quantity = int(product.quantity) - int(quantity)
+                product.quantity = max(remaining_quantity, 0)
+                product.save()
+
+                purchase_serializer.save()
+
+                PaymentConfirmation.objects.create(
+                    product=product, customer=request.user, session_id=session_id
+                )
+
+                return Response({"detail": "Purchase successful."})
+            else:
+                return Response(
+                    {"error": purchase_serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        except Exception as e:
+            print(e)
+            return Response(
+                {"detail": "Unsuccessful payment confirmation."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+def success_view(request):
+    session_id = request.GET.get("session_id")
+    return HttpResponse(f"Success! Session ID: {session_id}")
