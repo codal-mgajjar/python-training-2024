@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -13,6 +12,7 @@ from .serializers import (
     ProductSerializer,
     CategorySerializer,
     PurchaseSerializer,
+    ActivationSerializer,
 )
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -24,32 +24,109 @@ from .models import Product, Category, Purchase, PaymentConfirmation
 import stripe
 from django.conf import settings
 from django.shortcuts import HttpResponse
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import force_str, force_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.urls import reverse
+
+token_generator = PasswordResetTokenGenerator()
 
 
-class RegisterUser(APIView):
+class RegistrationAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data["username"]
+            email = serializer.validated_data["email"]
+            password = serializer.validated_data["password"]
 
-        if not serializer.is_valid():
-            return Response(
-                {
-                    "status": status.HTTP_403_FORBIDDEN,
-                    "errors": serializer.errors,
-                    "message": "Something went wrong",
-                }
+            if User.objects.filter(username=username).exists():
+                return Response(
+                    {"error": "Username already exists"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            if User.objects.filter(email=email).exists():
+                return Response(
+                    {"error": "Email already exists"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            if len(password) < 6:
+                return Response(
+                    {"error": "Password too short"}, status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user = User.objects.create_user(username=username, email=email)
+            user.set_password(password)
+            user.is_active = False
+            user.save()
+
+            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+
+            domain = get_current_site(request).domain
+            link = reverse(
+                "activate",
+                kwargs={"uidb64": uidb64, "token": token_generator.make_token(user)},
             )
 
-        user = serializer.save()
+            activate_url = "http://" + domain + link
+
+            email_subject = "Activate your account"
+            email_body = f"Hi {user.username},\nVerify your account\n{activate_url}"
+            email = EmailMessage(
+                email_subject, email_body, "riynjeck@gmail.com", [email]
+            )
+            email.send(fail_silently=False)
+
+            return Response(
+                {
+                    "message": "Account successfully created. Please check your email for the activation link."
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ActivationAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
+
+    def get(self, request, uidb64, token):
+        try:
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not ActivationSerializer().validate({"user": user, "token": token}):
+                return Response(
+                    {"error": "User already activated"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            if user.is_active:
+                return Response(
+                    {"message": "User is already active"}, status=status.HTTP_200_OK
+                )
+
+            user.is_active = True
+            user.save()
+
+            return Response(
+                {"message": "Account activated successfully"}, status=status.HTTP_200_OK
+            )
+
+        except DjangoUnicodeDecodeError as e:
+            pass
 
         return Response(
-            {
-                "status": status.HTTP_200_OK,
-                "payload": serializer.data,
-                "message": "you data is registered",
-            }
+            {"error": "Invalid or expired activation token"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
 
