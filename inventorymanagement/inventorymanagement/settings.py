@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-9t_ncv8y7wkjz+8145ox8*y4l7pweotaicr4%8x0l@6e51@0fh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -136,7 +136,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-    ]
+    ],
 }
 
 LOGGING = {
@@ -172,3 +172,12 @@ DEFAULT_FROM_MAIL = env.DEFAULT_FROM_MAIL
 EMAIL_HOST = env.EMAIL_HOST
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+
+# if not DEBUG:
+
+#     REST_FRAMEWORK = {
+
+#     'DEFAULT_RENDERER_CLASSES' : (
+#         'rest_framework.renderers.BrowsableAPIRenderer',
+#         )
+#     }
