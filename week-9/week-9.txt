@@ -1,4 +1,4 @@
-3-4-2024
+4-3-2024
 
 - Fixtures
     - loaddata 
@@ -15,3 +15,8 @@
         - Formatted data
             - python manage.py dumpdata app_name --indent 2 > file.json
     - Implemented purchase product functionality
+
+5-3-2024
+
+- Implemented stripe payment functionality
+- Implemented user activation through email 
