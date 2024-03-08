@@ -21,6 +21,11 @@
 - Implemented stripe payment functionality
 - Implemented user activation through email 
 
+6-3-2024
+
+- Solved few errors of email activation 
+- Researched for live project ticket
+
 7-3-2024
 
 - M2M working
