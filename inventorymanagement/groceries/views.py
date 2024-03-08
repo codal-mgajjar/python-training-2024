@@ -13,6 +13,7 @@ from .serializers import (
     CategorySerializer,
     PurchaseSerializer,
     ActivationSerializer,
+    ChangePasswordSerializer,
 )
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -30,6 +31,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.urls import reverse
+from .throttle import OncePerDayUserThrottle
+from django.contrib.auth.hashers import make_password
 
 token_generator = PasswordResetTokenGenerator()
 
@@ -403,3 +406,36 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 def success_view(request):
     session_id = request.GET.get("session_id")
     return HttpResponse(f"Success! Session ID: {session_id}")
+
+
+class ChangePasswordAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+
+    def post(self, request, *args, **kwargs):
+        serializer = ChangePasswordSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user = request.user
+            old_password = serializer.data.get("old_password")
+            new_password = serializer.data.get("new_password")
+
+            # Check if the old password is correct
+            if not user.check_password(old_password):
+                return Response(
+                    {"detail": "Old password is incorrect."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            # Set the new password and save the user
+            user.set_password(new_password)
+            user.save()
+
+            # Update the authentication token if using Token authentication
+            Token.objects.filter(user=user).delete()
+            Token.objects.create(user=user)
+
+            return Response(
+                {"detail": "Password changed successfully."}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

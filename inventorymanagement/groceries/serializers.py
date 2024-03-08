@@ -129,3 +129,8 @@ class ActivationSerializer(serializers.Serializer):
             raise serializers.ValidationError("User already activated")
 
         return data
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
