@@ -32,7 +32,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.urls import reverse
 from .throttle import OncePerDayUserThrottle
-from django.contrib.auth.hashers import make_password
 
 token_generator = PasswordResetTokenGenerator()
 
@@ -47,12 +46,6 @@ class RegistrationAPIView(APIView):
             username = serializer.validated_data["username"]
             email = serializer.validated_data["email"]
             password = serializer.validated_data["password"]
-
-            if User.objects.filter(username=username).exists():
-                return Response(
-                    {"error": "Username already exists"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
 
             if User.objects.filter(email=email).exists():
                 return Response(
@@ -125,12 +118,20 @@ class ActivationAPIView(APIView):
             )
 
         except DjangoUnicodeDecodeError as e:
-            pass
-
-        return Response(
-            {"error": "Invalid or expired activation token"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+            return Response(
+                {"error": "Invalid or expired activation token"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except User.DoesNotExist as e:
+            return Response(
+                {"error": "User not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class LoginView(APIView):
@@ -410,6 +411,7 @@ def success_view(request):
 
 class ChangePasswordAPIView(APIView):
     authentication_classes = [TokenAuthentication]
+    throttle_classes = [OncePerDayUserThrottle]
 
     def post(self, request, *args, **kwargs):
         serializer = ChangePasswordSerializer(data=request.data)
@@ -419,20 +421,14 @@ class ChangePasswordAPIView(APIView):
             old_password = serializer.data.get("old_password")
             new_password = serializer.data.get("new_password")
 
-            # Check if the old password is correct
             if not user.check_password(old_password):
                 return Response(
                     {"detail": "Old password is incorrect."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-            # Set the new password and save the user
             user.set_password(new_password)
             user.save()
-
-            # Update the authentication token if using Token authentication
-            Token.objects.filter(user=user).delete()
-            Token.objects.create(user=user)
 
             return Response(
                 {"detail": "Password changed successfully."}, status=status.HTTP_200_OK

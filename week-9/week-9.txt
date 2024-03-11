@@ -166,3 +166,9 @@ Method 2 :
         ]
     
     step 3 : Migrate changes
+
+8-3-2024
+
+- Implemented change password functionality
+- added throttle to change password
+- Explored jst
