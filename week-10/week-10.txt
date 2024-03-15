@@ -15,3 +15,8 @@
 
 - Explored JST
 - Worked on ticket for optimization 
+
+14-3-2024
+
+- Implemented caching in live Project
+- Solved issue related to deactivating cache
