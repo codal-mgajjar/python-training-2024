@@ -309,7 +309,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                     "product_id": product.id,
                     "quantity": quantity,
                 },
-                success_url="http://localhost:8000/groceries/success/?session_id={{CHECKOUT_SESSION_ID}}",
+                success_url="http://localhost:8001/groceries/success/?session_id={{CHECKOUT_SESSION_ID}}",
                 cancel_url=settings.SITE_URL + "?cancel=true",
             )
             session_id = checkout_session.id
