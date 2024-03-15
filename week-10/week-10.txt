@@ -10,3 +10,8 @@
 - Solved issue for file storage issue
 - testing for all export functionality 
 - Solved issue related to celery
+
+13-3-2024
+
+- Explored JST
+- Worked on ticket for optimization 
