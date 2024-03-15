@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from .models import Product, Category, Purchase, PaymentConfirmation
 from django.core.validators import RegexValidator
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,13 +15,27 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        user = User.objects.create(
+        user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data["email"],
+            password=validated_data["password"],
         )
-        user.set_password(validated_data["password"])
-        user.save()
         return user
+
+    def validate_password(self, value):
+        validate_password(value)
+        return value
+
+    def validate_email(self, value):
+        try:
+            validate_email(value)
+        except ValidationError:
+            raise serializers.ValidationError("Invalid email format")
+
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email already exists")
+
+        return value
 
 
 class LoginUserSerializer(serializers.Serializer):
@@ -35,10 +52,6 @@ class LoginUserSerializer(serializers.Serializer):
             )
 
         return data
-
-    class Meta:
-        model = User
-        fields = "__all__"
 
 
 class ProductSerializer(serializers.ModelSerializer):

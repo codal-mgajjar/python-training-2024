@@ -32,53 +32,37 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.urls import reverse
 from .throttle import OncePerDayUserThrottle
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 token_generator = PasswordResetTokenGenerator()
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 
 
 class RegistrationAPIView(APIView):
-    authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            username = serializer.validated_data["username"]
-            email = serializer.validated_data["email"]
-            password = serializer.validated_data["password"]
-
-            if User.objects.filter(email=email).exists():
-                return Response(
-                    {"error": "Email already exists"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-
-            if len(password) < 6:
-                return Response(
-                    {"error": "Password too short"}, status=status.HTTP_400_BAD_REQUEST
-                )
-
-            user = User.objects.create_user(username=username, email=email)
-            user.set_password(password)
-            user.is_active = False
-            user.save()
+            user = serializer.save()
 
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-
-            domain = get_current_site(request).domain
-            link = reverse(
-                "activate",
-                kwargs={"uidb64": uidb64, "token": token_generator.make_token(user)},
+            token = default_token_generator.make_token(user)
+            activate_url = request.build_absolute_uri(
+                reverse("activate", kwargs={"uidb64": uidb64, "token": token})
             )
-
-            activate_url = "http://" + domain + link
 
             email_subject = "Activate your account"
             email_body = f"Hi {user.username},\nVerify your account\n{activate_url}"
-            email = EmailMessage(
-                email_subject, email_body, "riynjeck@gmail.com", [email]
+            send_mail(
+                email_subject,
+                email_body,
+                "mgajjar@gmail.com",
+                [user.email],
+                fail_silently=False,
             )
-            email.send(fail_silently=False)
 
             return Response(
                 {
@@ -91,7 +75,6 @@ class RegistrationAPIView(APIView):
 
 
 class ActivationAPIView(APIView):
-    authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
 
     def get(self, request, uidb64, token):
@@ -99,15 +82,15 @@ class ActivationAPIView(APIView):
             id = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=id)
 
-            if not ActivationSerializer().validate({"user": user, "token": token}):
-                return Response(
-                    {"error": "User already activated"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-
             if user.is_active:
                 return Response(
                     {"message": "User is already active"}, status=status.HTTP_200_OK
+                )
+
+            if not default_token_generator.check_token(user, token):
+                return Response(
+                    {"error": "Invalid or expired activation token"},
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
 
             user.is_active = True
@@ -117,15 +100,10 @@ class ActivationAPIView(APIView):
                 {"message": "Account activated successfully"}, status=status.HTTP_200_OK
             )
 
-        except DjangoUnicodeDecodeError as e:
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             return Response(
                 {"error": "Invalid or expired activation token"},
                 status=status.HTTP_400_BAD_REQUEST,
-            )
-        except User.DoesNotExist as e:
-            return Response(
-                {"error": "User not found"},
-                status=status.HTTP_404_NOT_FOUND,
             )
         except Exception as e:
             return Response(
@@ -135,7 +113,6 @@ class ActivationAPIView(APIView):
 
 
 class LoginView(APIView):
-    authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -145,16 +122,18 @@ class LoginView(APIView):
         if not serializer.is_valid():
             return Response(
                 {
-                    "status": status.HTTP_403_FORBIDDEN,
+                    "status": status.HTTP_400_BAD_REQUEST,
                     "errors": serializer.errors,
-                    "message": "Something went wrong",
+                    "message": "Validation error",
                 }
             )
 
-        username = serializer.validated_data["username"]
-        password = serializer.validated_data["password"]
+        user = authenticate(
+            request,
+            username=serializer.validated_data["username"],
+            password=serializer.validated_data["password"],
+        )
 
-        user = authenticate(username=username, password=password)
         if not user:
             return Response(
                 {
@@ -164,23 +143,24 @@ class LoginView(APIView):
             )
 
         token, created = Token.objects.get_or_create(user=user)
-        data = serializer.data
-        data["token"] = str(token)
         return Response(
             {
-                "data": data,
                 "status": status.HTTP_200_OK,
                 "message": "Login successful",
+                "token": token.key,
             }
         )
 
 
 class LogoutView(APIView):
-    authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request):
-        request.auth.delete()
+        try:
+            request.auth.delete()
+        except (AttributeError, Token.DoesNotExist):
+            pass
+
         return Response({"status": status.HTTP_200_OK, "message": "Logout successful"})
 
 
@@ -287,7 +267,6 @@ class ProductListView(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated & ReadOnly | IsAdminUser]
 
 
