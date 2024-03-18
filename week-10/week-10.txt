@@ -3,3 +3,10 @@
 - Explored JST
 - Worked on Remove the API Documentation on the production
 - Solved issue of pytest in local system
+
+12-3-2024
+
+- Researched for filestorage issue in on premises
+- Solved issue for file storage issue
+- testing for all export functionality 
+- Solved issue related to celery
