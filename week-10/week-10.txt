@@ -14,4 +14,4 @@
 13-3-2024
 
 - Explored JST
-- Worked on ticket for optimization
+- Worked on ticket for filter account optimization
