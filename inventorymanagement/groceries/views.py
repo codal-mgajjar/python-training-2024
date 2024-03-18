@@ -13,6 +13,7 @@ from .serializers import (
     CategorySerializer,
     PurchaseSerializer,
     ActivationSerializer,
+    ChangePasswordSerializer,
 )
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -30,6 +31,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.urls import reverse
+from .throttle import OncePerDayUserThrottle
 
 token_generator = PasswordResetTokenGenerator()
 
@@ -44,12 +46,6 @@ class RegistrationAPIView(APIView):
             username = serializer.validated_data["username"]
             email = serializer.validated_data["email"]
             password = serializer.validated_data["password"]
-
-            if User.objects.filter(username=username).exists():
-                return Response(
-                    {"error": "Username already exists"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
 
             if User.objects.filter(email=email).exists():
                 return Response(
@@ -122,12 +118,20 @@ class ActivationAPIView(APIView):
             )
 
         except DjangoUnicodeDecodeError as e:
-            pass
-
-        return Response(
-            {"error": "Invalid or expired activation token"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+            return Response(
+                {"error": "Invalid or expired activation token"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except User.DoesNotExist as e:
+            return Response(
+                {"error": "User not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class LoginView(APIView):
@@ -403,3 +407,31 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 def success_view(request):
     session_id = request.GET.get("session_id")
     return HttpResponse(f"Success! Session ID: {session_id}")
+
+
+class ChangePasswordAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    throttle_classes = [OncePerDayUserThrottle]
+
+    def post(self, request, *args, **kwargs):
+        serializer = ChangePasswordSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user = request.user
+            old_password = serializer.data.get("old_password")
+            new_password = serializer.data.get("new_password")
+
+            if not user.check_password(old_password):
+                return Response(
+                    {"detail": "Old password is incorrect."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            user.set_password(new_password)
+            user.save()
+
+            return Response(
+                {"detail": "Password changed successfully."}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

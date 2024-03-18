@@ -42,7 +42,16 @@ INSTALLED_APPS = [
     "groceries",
     "rest_framework.authtoken",
     "corsheaders",
+    "constance",
 ]
+
+CONSTANCE_CONFIG = {
+    "THE_ANSWER": (
+        42,
+        "Answer to the Ultimate Question of Life, " "The Universe, and Everything",
+    ),
+}
+CONSTANCE_BACKEND = "constance.backends.redisd.RedisBackend"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

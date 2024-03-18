@@ -8,6 +8,7 @@ from .views import (
     CategoryViewSet,
     RegistrationAPIView,
     ActivationAPIView,
+    ChangePasswordAPIView,
 )
 from rest_framework.routers import DefaultRouter
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("success/", success_view, name="success_view"),
+    path("change_password/", ChangePasswordAPIView.as_view(), name="change_password"),
     path(
         "<int:pk>/create-stripe-checkout-session/",
         ProductListView.as_view({"post": "create_stripe_checkout_session"}),
