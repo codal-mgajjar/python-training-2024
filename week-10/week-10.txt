@@ -20,3 +20,9 @@
 
 - Implemented caching in live Project
 - Solved issue related to deactivating cache
+
+15-3-2024
+
+- worked on deleting cache
+- created decorator for deleting cache
+- tested diffrent cases to delete cache
