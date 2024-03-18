@@ -2,4 +2,4 @@
 
 - Explored JST
 - Worked on Remove the API Documentation on the production
-- Solved issue of pytest in jst
+- Solved issue of pytest in local system
