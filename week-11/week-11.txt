@@ -12,3 +12,8 @@
 20-3-2024
 
 - Created script to extract apis from swagger
+
+21-3-2024
+
+- Created script to test api is authenticated or not
+- Created function to add custom apis for testing authenticated apis
