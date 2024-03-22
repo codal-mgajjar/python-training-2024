@@ -12,4 +12,3 @@
 20-3-2024
 
 - Created script to extract apis from swagger
-
