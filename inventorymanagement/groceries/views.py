@@ -1,3 +1,4 @@
+from requests import Session
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -336,7 +337,14 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-            checkout_session = stripe.checkout.Session.retrieve(session_id)
+            checkout_session = stripe.checkout.Session.retrieve(str(session_id))
+
+            # Check if the payment status is 'paid'
+            if checkout_session.payment_status != "paid":
+                return Response(
+                    {"error": "Payment has not been completed."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             product_id = checkout_session.metadata.get("product_id")
             quantity = checkout_session.metadata.get("quantity")
@@ -345,7 +353,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
             if int(product.quantity) < int(quantity):
                 return Response(
-                    {"error": "Insufficient quantity available."},
+                    {"error": "Insufficient quantity available for this product."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
@@ -371,15 +379,33 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                 return Response({"detail": "Purchase successful."})
             else:
                 return Response(
-                    {"error": purchase_serializer.errors},
+                    {
+                        "error": "Invalid purchase data.",
+                        "details": purchase_serializer.errors,
+                    },
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-        except Exception as e:
-            print(e)
+        except PaymentConfirmation.DoesNotExist:
             return Response(
-                {"detail": "Unsuccessful payment confirmation."},
+                {"error": "Payment confirmation not found for this session ID."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except stripe.InvalidRequestError as e:
+            return Response(
+                {"error": "Stripe API error: " + str(e)},
                 status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Product.DoesNotExist:
+            return Response(
+                {"error": "Product not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            print(e)  # Log the unexpected error for debugging
+            return Response(
+                {"error": "An unexpected error occurred during payment confirmation."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
 
@@ -390,7 +416,7 @@ def success_view(request):
 
 class ChangePasswordAPIView(APIView):
     authentication_classes = [TokenAuthentication]
-    throttle_classes = [OncePerDayUserThrottle]
+    # throttle_classes = [OncePerDayUserThrottle]
 
     def post(self, request, *args, **kwargs):
         serializer = ChangePasswordSerializer(data=request.data)
