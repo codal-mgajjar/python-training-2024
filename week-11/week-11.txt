@@ -17,3 +17,7 @@
 
 - Created script to test api is authenticated or not
 - Created function to add custom apis for testing authenticated apis
+
+22-3-2024
+
+- Implemented redis caching for multitenant in JST
