@@ -8,3 +8,7 @@
 
 - Implemented deleting cache for diffrent scenarios
 - Researched for Implementing caching for multitenent app
+
+20-3-2024
+
+- Created script to extract apis from swagger
