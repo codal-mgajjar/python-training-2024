@@ -1,0 +1,5 @@
+18-3-2024
+
+- Implemented values for queryset for ticket of - Improvement: Client filter across system.
+- Prepared document for changes made for optimization of client filter.
+- Tested diffrent scenarios wherever there is need of deleting cache.
